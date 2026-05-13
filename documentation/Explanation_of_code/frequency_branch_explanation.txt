@@ -1,0 +1,54 @@
+FREQUENCY_BRANCH.PY EXPLANATION
+===============================
+
+It extracts frequency-domain forensic features directly from raw frames.
+
+
+Input
+-----
+The branch receives raw input:
+- `x`: `(B*N, 6, 224, 224)`
+
+This is the same 6-channel RGB+YCbCr input used by the backbone.
+
+
+Main Idea
+---------
+The branch builds a feature map by:
+1. adapting raw frames to a 256-channel representation
+2. normalizing those features for FFT stability
+3. computing multi-scale FFT magnitude and phase
+4. refining the fused frequency features
+5. applying channel and spatial attention
+
+
+Key Components
+--------------
+- `adapter`: raw → 256 channels while downsampling to 28×28
+- `MultiScaleFFT`: computes FFT over block sizes `(2, 4, 7)`
+- `refine`: conv block after FFT
+- `channel_attn` / `channel_attn_max`: dual attention for frequency bands
+- `spatial_attn`: spatial attention map
+- `out_proj`: final 1×1 conv
+
+
+The branch intentionally stops at 28×28 resolution instead of 14×14.
+This gives finer frequency localization and matches the backbone's `F_low`
+resolution in AFAGNet v3.
+
+
+Forward Flow
+------------
+1. raw input is processed by `self.adapter` to produce `(B*N, 256, 28, 28)`
+2. features are instance-normalized and clamped for FFT stability
+3. `MultiScaleFFT` computes magnitude and phase features at multiple scales
+4. projections and fusion produce a frequency feature map
+5. channel attention and spatial attention weight the map
+6. final residual fusion returns the output feature map
+
+
+Output
+------
+The branch returns a tensor of shape:
+- `(B*N, 256, 28, 28)`
+

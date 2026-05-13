@@ -1,0 +1,56 @@
+SPATIAL_BRANCH.PY 
+=============================
+It focuses on spatial and semantic cues extracted from backbone features.
+
+
+Main Components
+---------------
+1. `CBAM` attention block
+2. `SpatialBranch` dual-path fusion module
+
+
+CBAM Class
+----------
+CBAM is a combined channel and spatial attention module:
+- channel attention decides which feature channels matter
+- spatial attention decides where in the map to focus
+
+Flow:
+1. global average pooling to produce channel statistics
+2. MLP to compute channel weights
+3. scale features channel-wise
+4. compute channel-wise mean and max maps
+5. spatial 7×7 conv to compute spatial attention
+6. scale features spatially
+
+
+SpatialBranch Class
+-------------------
+This branch processes:
+- `F_low`: fine spatial feature map from the backbone
+- `F_high`: coarse semantic feature map from the backbone
+
+The module builds two paths:
+- Path A: processes `F_low` with high-pass residual, conv, and CBAM
+- Path B: projects `F_high` to 256 channels, processes it, upsamples it to
+  match `F_low` size, and applies CBAM
+
+The two paths are concatenated and fused back to 256 channels.
+
+
+Forward Flow
+------------
+1. apply a high-pass residual block to `F_low`
+2. process through conv + CBAM
+3. project `F_high` and apply a similar residual block
+4. upsample `F_high` path to `F_low` spatial size
+5. concatenate both paths
+6. fuse them with a 1×1 conv to produce the final spatial feature
+
+
+
+Output
+------
+The output shape is:
+- `(B*N, 256, 28, 28)`
+

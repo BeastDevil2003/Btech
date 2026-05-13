@@ -1,0 +1,173 @@
+AFAG_NET_V3.PY 
+==========================
+
+This is the top-level model file for the architecture.
+
+
+Main Class
+----------
+AFAGNetV3(nn.Module)
+
+This class combines all submodules into one end-to-end model.
+
+
+What The Model Receives
+-----------------------
+Input to forward(x):
+
+x --> Shape:(B, N, 6, 224, 224)
+
+The model treats each frame as a 6-channel image normalized in [-1, 1].
+
+
+Main Components Created In __init__
+-----------------------------------
+The model creates these submodules:
+
+1. self.backbone = AFAGBackbone()
+   - extracts frame-level visual features from each input frame
+   - outputs `F_low` and `F_high`
+
+2. self.spatial = SpatialBranch(channels=256, high_channels=256)
+   - processes backbone features with a dual-path spatial branch
+
+3. self.frequency = FrequencyBranch()
+   - computes frequency-domain features directly from raw frames
+
+4. self.noise = NoiseBranch()
+   - extracts noise / residual forensic features from raw frames
+
+5. self.cgaf = CGAFv2(channels=256, use_f_high=True)
+   - adaptively fuses spatial, frequency, and noise branch outputs
+   - uses `F_high` for global context gating
+
+6. self.temporal = TemporalModel()
+   - aggregates fused per-frame features over time
+
+7. self.heads = OutputHeads()
+   - produces classification and localization outputs
+
+
+High-Level Forward Flow
+-----------------------
+The forward pass follows this sequence:
+
+1. flatten batch and time: frames are processed as `B*N` images
+2. run backbone on each frame
+3. compute spatial, frequency, and noise branch features
+4. fuse branch outputs with CGAFv2 using `F_high` context
+5. restore temporal shape to `(B, N, C, H, W)`
+6. run temporal modeling over the fused sequence
+7. apply output heads for classification and mask prediction
+8. return the final dictionary of outputs and intermediate tensors
+
+
+Detailed Forward Steps
+----------------------
+
+Step 1. Input reshape                at line 164
+The model begins with:
+
+B, N, C, H, W = x.shape
+x_flat = x.view(B * N, C, H, W)
+
+This converts the video batch into a batch of individual frames.
+
+
+Step 2. Backbone extraction
+The backbone returns:
+
+F_low, F_high = self.backbone(x_flat)
+
+- `F_low`: (B*N, 256, 28, 28)
+- `F_high`: (B*N, 256, 7, 7)
+
+`F_low` provides fine texture features and spatial detail.
+`F_high` provides high-level semantic context.
+
+
+Step 3. Multi-branch processing
+The three branches compute:
+
+Fs = self.spatial(F_low, F_high)
+Ff = self.frequency(x_flat)
+Fn = self.noise(x_flat)
+
+All branch outputs are cast to the backbone dtype and have shape:
+`(B*N, 256, 28, 28)`.
+
+
+Step 4. CGAFv2 fusion
+Fusion is performed with:
+
+Ffusion_flat, Csf, Csn, Cfn = self.cgaf(Fs, Ff, Fn, F_high=F_high)
+
+- `Ffusion_flat`: fused feature map of shape `(B*N, 256, 28, 28)`
+- `Csf`, `Csn`, `Cfn`: branch similarity maps used for consistency and
+  fusion gating
+
+
+Step 5. Restore temporal shape
+The fused map is reshaped back into sequence form:
+
+Ffusion = Ffusion_flat.view(B, N, C_f, H_f, W_f)
+
+This produces `(B, N, 256, 28, 28)` for temporal modeling.
+
+
+Step 6. Temporal modeling
+The temporal model consumes fused features and returns:
+
+video_feat = self.temporal(Ffusion)
+
+- `video_feat`: `(B, 512)` video-level representation
+
+
+Step 7. Output heads
+The output heads are called with:
+
+head_out = self.heads(
+    video_feat,
+    Ffusion,
+    F_high_flat=F_high,
+    Fs=Fs, Ff=Ff, Fn=Fn,
+)
+
+This produces classification, localization, and explainability outputs.
+
+
+Returned Outputs
+----------------
+The final dictionary includes:
+
+- `pred_cls`: binary logit for real/fake classification
+- `pred_mask`: mask for the middle frame
+- `mask_sequence`: predicted mask for every frame
+- `confidence`: mask confidence map
+- `stability`: temporal stability of mask predictions
+- `F_low`: backbone low-level feature map
+- `F_high`: backbone high-level feature map
+- `Fs`: spatial branch output
+- `Ff`: frequency branch output
+- `Fn`: noise branch output
+- `Ffusion`: fused flattened features
+- `Ffusion_seq`: fused sequence features
+- `Csf`: spatial-frequency similarity map
+- `Csn`: spatial-noise similarity map
+- `Cfn`: frequency-noise similarity map
+
+
+AltFreezingTrainer
+------------------
+This file also contains `AltFreezingTrainer`, which supports alternate
+training phases:
+
+- even epochs: freeze spatial/branch/cgaf modules, train temporal+heads
+- odd epochs: freeze temporal+heads, train spatial/branch/cgaf modules
+
+This helps reduce gradient interference between spatial and temporal paths.
+
+
+
+
+

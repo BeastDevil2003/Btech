@@ -1,0 +1,111 @@
+Purpose
+-------
+This file defines the feature extraction backbone used by AFAGNet.
+
+Its job is to take one frame tensor and convert it into deep feature maps that
+the rest of the model can use.
+
+In simple words:
+this is the visual feature extractor of the model.
+
+
+Main Class
+----------
+AFAGBackbone(nn.Module)
+
+
+Input
+-----
+x
+Shape:
+(B*N, 6, 224, 224) in the full pipeline
+
+Important detail:
+the backbone have small 1x1 input adapter that converts the 6-channel
+RGB+YCbCr input into 3 channels before sending it into the pretrained
+MobileViT model.
+
+Why this is useful:
+- it keeps compatibility with pretrained 3-channel backbone weights
+- it avoids throwing away the YCbCr channels produced by the dataloader
+- it lets the model learn how to mix RGB and YCbCr information
+
+
+Model Used
+----------
+The backbone creates a pretrained model using `timm`:
+
+"mobilevitv2_100"
+
+with:
+- pretrained=True
+- features_only=True
+
+It only returns intermediate feature maps.
+
+
+ __init__ 
+------------------
+1. creates `input_adapter`, a 1x1 convolution from 6 channels to 3 channels
+2. creates the MobileViT v2 backbone
+3. creates `low_proj` and `high_proj` a 1x1 convolution:
+
+The input adapter is initialized to act like:
+- output channel 0 copies RGB channel 0
+- output channel 1 copies RGB channel 1
+- output channel 2 copies RGB channel 2
+
+So the model starts from a safe pretrained-compatible state, then can learn to
+use YCbCr information during training.
+
+
+Forward Flow
+------------
+1. Adapt 6 input channels to 3 channels with the learned input adapter
+2. Pass adapted input through MobileViT backbone
+3. Collect intermediate feature maps
+4. Select two feature levels
+5. Project low-level feature map to 256 channels
+6. Resize high-level feature map to 7x7
+7. Return both feature maps
+
+
+Returned Outputs
+----------------
+The forward method returns:
+
+F_low, F_high
+
+1. F_low
+   Taken from `features[-2]`
+   Original shape comment:
+   (B*N, 384, 14, 14)
+
+   Then projected to:
+   (B*N, 256, 14, 14)
+
+2. F_high
+   Taken from `features[-1]`
+   Original shape comment:
+   (B*N, 512, 8, 8)
+
+   Then resized to:
+   about (B*N, 512, 7, 7)
+
+
+Why Two Feature Levels
+----------------------
+Usually:
+- lower/intermediate features preserve more local detail
+- higher/deeper features contain stronger semantic information
+
+In your current top-level model:
+- F_low is actively used by the multi-branch module
+- F_high is returned but not currently used later in `afag_net.py`
+
+
+Short Summary
+-------------
+This file extracts deep visual features from each RGB frame using a pretrained
+MobileViT v2 backbone and returns two feature maps, mainly using the projected
+low-level feature map for the rest of the network.

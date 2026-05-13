@@ -1,0 +1,78 @@
+NOISE_BRANCH.PY EXPLANATION
+===========================
+
+File:
+models/branches/noise_branch.py
+
+Purpose
+-------
+This file defines the noise branch.
+
+Its job is to focus on residual noise and forensic traces that may reveal
+manipulation.
+
+
+Main Idea
+---------
+The branch combines:
+1. fixed SRM-style noise filters
+2. a learnable convolution path
+3. a refinement convolution block
+
+This is why the design is called hybrid in spirit:
+it mixes fixed forensic priors with learnable filters.
+
+
+get_srm_kernels()
+-----------------
+This helper creates three small SRM-like kernels.
+
+SRM means Spatial Rich Model, a type of handcrafted residual filter often used
+in image forensics and steganalysis.
+
+The function:
+1. defines three 3x3 kernels
+2. converts them to a tensor
+3. returns them in shape (3, 1, 3, 3)
+
+
+NoiseBranch Class
+-----------------
+The branch creates:
+
+1. `self.srm`
+   A depthwise convolution with fixed-style SRM initialization
+
+2. `self.learnable_path`
+   Another depthwise convolution that is trainable
+
+3. `self.conv`
+   A standard conv + batch norm + ReLU refinement block
+
+
+Why Depthwise Convolution
+-------------------------
+Using `groups=channels` means each channel is filtered independently.
+
+This matches the idea of applying residual/noise filters per feature channel.
+
+
+Forward Flow
+------------
+1. apply SRM-style convolution
+2. apply learnable depthwise convolution
+3. add the two results together
+4. pass through refinement conv block
+5. return output
+
+
+Why This Branch Is Useful
+-------------------------
+Manipulated media often leaves behind subtle residual artifacts.
+A noise branch tries to make those weak traces easier for the network to use.
+
+
+Short Summary
+-------------
+This file builds the noise branch, which combines SRM-inspired residual filters
+with a learnable noise-processing path to capture subtle manipulation traces.

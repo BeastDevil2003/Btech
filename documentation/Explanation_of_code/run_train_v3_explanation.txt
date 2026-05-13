@@ -1,0 +1,177 @@
+RUN_TRAIN_V3.PY 
+===========================
+It handles hyperparameter selection, dataset cache building, identity-aware
+train/validation splitting, model initialization/resume, and the final train
+call.
+
+
+Main Components
+---------------
+- GPU detection and batch-size profile selection
+- hyperparameter profile table for batch sizes 2, 4, and 8
+- dataset cache builder using `FFPPDatasetV2`
+- identity-disjoint train/validation split
+- AFAGNetV3 model instantiation and checkpoint resume logic
+- training invocation via `train.train_pipeline_v3.train`
+
+
+Important Constants
+-------------------
+- `DEFAULT_ROOT = "FaceForensics_Data"`
+  default dataset root directory
+
+- `DEFAULT_CACHE_DIR = "dataset/cache/ffpp_processed_v2"`
+  directory for preprocessed cached frames
+
+- `HPARAM_TABLE`
+  profile settings for batch sizes 2, 4, and 8:
+  - `weight_decay`
+  - `mixup_alpha`
+  - `lr`
+  - `warmup_epochs`
+  - `patience`
+  - `num_workers`
+  - `focal_alpha`
+  - `note`
+
+
+Batch Size Selection
+--------------------
+`detect_batch_size()` checks CUDA availability and GPU memory:
+- >=14GB → batch size 8
+- >=8GB → batch size 4
+- otherwise → batch size 2
+
+If `--batch-size` is passed, it overrides auto selection. Otherwise, the script
+may prompt the user to choose a profile interactively when running from a TTY.
+
+
+Argument Parsing
+----------------
+Supported CLI arguments:
+- `--batch-size` (2, 4, 8)
+- `--weight-decay`
+- `--mixup-alpha`
+- `--lr`
+- `--warmup-epochs`
+- `--patience`
+- `--num-workers`
+- `--focal-alpha`
+- `--total-epochs` (default 100)
+- `--root` (dataset root)
+- `--cache-dir` (cache directory)
+- `--print-options`
+
+Interactive Profile Selection
+-----------------------------
+If no batch size is specified and the process is attached to a terminal, the
+script asks the user to select a profile or enter `custom`.
+
+`custom` mode prompts for all hyperparameters one by one and builds a custom
+profile dictionary.
+
+If the user chooses a numeric batch size outside 2/4/8, it maps to the nearest
+supported profile.
+
+
+Hyperparameter Overrides
+------------------------
+Command-line overrides always replace the selected profile values.
+If no overrides are supplied, the script may still ask interactively whether the
+user wants to change any profile values.
+
+
+Data Preparation
+----------------
+The script uses:
+- `build_ffpp_dataset(root)` to gather video paths, labels, mask paths, and
+  domain labels
+- `FFPPDatasetV2` to build a cached dataset with face detection and alignment
+
+
+Cache Building
+--------------
+A `FFPPDatasetV2` instance is created with:
+- `use_alignment=True`
+- `training_mode=False`
+- `label_smoothing=0.0`
+- `use_sbi=False`
+- `temporal_strategy="blend"`
+
+checks cache status and only builds missing entries if needed.
+It uses `num_workers=0` when building cache in this script to remain safe on
+Windows.
+
+If fewer than 80% of samples are cached after the build attempt, the script
+exits with an error, because training on uncached frames is extremely slow.
+
+
+Train/Validation Split
+----------------------
+The script uses `build_identity_disjoint_split(video_paths, val_ratio=0.2,
+seed=42)` to create identity-aware splits.
+This ensures that videos of the same identity do not appear in both train and
+validation sets.
+
+Train dataset configuration:
+- `training_mode=True`
+- `label_smoothing=0.05`
+- `use_sbi=True`
+- `temporal_strategy="blend"`
+
+Validation dataset configuration:
+- `training_mode=False`
+- `label_smoothing=0.0`
+- `use_sbi=False`
+- `temporal_strategy="blend"`
+
+Both datasets use the same cache directory and alignment setting.
+
+
+Model Initialization and Resume
+-------------------------------
+It prints total and trainable parameter counts.
+
+Checkpoint logic:
+- checkpoint path: `checkpoints/best_model.pth`
+- if the checkpoint exists, model weights are loaded
+- the script attempts to resume from the last recorded epoch in
+  `experiments/logs/epoch_results_v3.txt`
+- if the recorded epoch is already >= `TOTAL_EPOCHS`, training stops
+
+If no checkpoint exists, training starts from scratch.
+
+
+Training Invocation
+-------------------
+This calls `train(...)` from `train.train_pipeline_v3` with:
+- `model`
+- `train_dataset`
+- `val_dataset`
+- `epochs=TOTAL_EPOCHS`
+- `batch_size`
+- `num_workers`
+- `lr`
+- `backbone_lr_factor=0.1`
+- `weight_decay`
+- `patience`
+- `warmup_epochs`
+- `use_amp=True`
+- `focal_alpha`
+- `focal_gamma=2.0`
+- `use_mixup=True`
+- `mixup_alpha`
+- `use_ema=True`
+- `ema_decay=0.9999`
+- `use_alt_freezing=False`
+- `save_dir="checkpoints"`
+- `log_dir="experiments/logs"`
+- `resume_epoch`
+
+
+Final Output
+------------
+After training completes, the script prints the best recorded validation
+AUC from the returned history dictionary.
+
+

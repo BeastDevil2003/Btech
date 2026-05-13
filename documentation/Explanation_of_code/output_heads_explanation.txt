@@ -1,0 +1,92 @@
+OUTPUT_HEADS.PY EXPLANATION
+===========================
+
+File:
+models/heads/output_heads.py
+
+Purpose
+-------
+This file defines the final prediction heads for AFAGNet v3.
+It converts video-level and per-frame fused features into classification and
+localization outputs.
+
+
+Main Components
+---------------
+1. `ClassificationHead`
+2. `LocalizationHead`
+3. `OutputHeads` wrapper
+
+
+ClassificationHead
+------------------
+Purpose:
+Predict whether the input video is real or fake.
+
+Inputs:
+- `temporal_feat`: `(B, 512)` from the temporal model
+- `high_feat`: `(B, 256)` pooled from `F_high`
+
+Flow:
+1. compute a gating signal from `high_feat`
+2. multiply `high_feat` by the gate
+3. concatenate gated high feature with `temporal_feat`
+4. pass through layer norm, dropout, and linear layers
+5. produce a raw logit output
+
+Output:
+- `pred_cls`: `(B, 1)` raw logit (no sigmoid inside the head)
+
+
+LocalizationHead
+----------------
+Purpose:
+Predict a spatial localization mask for manipulation.
+
+Inputs:
+- `Ffusion`: `(B*N, 256, 28, 28)` fused feature map
+- `F_high`: `(B*N, 256, 7, 7)` optional semantic skip
+
+Flow:
+1. initial conv block on `Ffusion`
+2. project and upsample `F_high` to match `Ffusion` size
+3. merge skip and main path
+4. decoder upsamples through 28→56→112→224
+5. final 1×1 conv + sigmoid
+
+Output:
+- mask for every frame: `(B*N, 1, 224, 224)`
+
+
+OutputHeads Wrapper
+-------------------
+The wrapper operates as follows:
+1. `F_high` is pooled and averaged across frames to create `F_high_pool`
+2. classification head predicts `pred_cls`
+3. fused features are flattened across B and N for localization
+4. localization head predicts a per-frame mask sequence
+5. the mask sequence is reshaped to `(B, N, 1, 224, 224)`
+6. the middle frame mask is selected as `pred_mask`
+7. `confidence` is computed as `|mask - 0.5| * 2`
+8. `stability` is computed as `1 - |mask_t - mask_{t+1}|`
+
+
+Returned Dictionary
+-------------------
+The head wrapper returns:
+- `pred_cls`
+- `pred_mask`
+- `mask_sequence`
+- `confidence`
+- `stability`
+
+Note:
+The current implementation does not return `attribution` by default.
+
+
+Short Summary
+-------------
+`models/heads/output_heads.py` takes the fused temporal representation and
+backbone semantic context to produce a binary classification score, a
+frame-level mask sequence, a middle-frame mask, and explainability signals for
+confidence and temporal stability.

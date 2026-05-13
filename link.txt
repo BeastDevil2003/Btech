@@ -1,0 +1,27 @@
+## FaceForensics++ Dataset
+# Official repository: https://github.com/ondyari/FaceForensics
+
+## Celeb-DF Dataset
+# Celeb-DF (v2) - High-quality deepfake dataset
+# Google Drive: https://drive.google.com/open?id=1iLx76wsbi9itnkxSqz9BVBl4ZvnbIazj
+# gdown command: gdown https://drive.google.com/uc?id=1iLx76wsbi9itnkxSqz9BVBl4ZvnbIazj
+
+# Celeb-DF (v1) - Original version
+# Google Drive: https://drive.google.com/open?id=10NGF38RgF8FZneKOuCOdRIsPzpC7_WDd
+# gdown command: gdown https://drive.google.com/uc?id=10NGF38RgF8FZneKOuCOdRIsPzpC7_WDd
+
+## DeeperForensics Dataset
+# DeeperForensics-1.0 - Large-scale face forgery dataset
+# Google Drive: https://drive.google.com/open?id=1s3KwYyTIXT78VzkRazn9QDPuNh18TWe-
+# gdown command: gdown https://drive.google.com/uc?id=1s3KwYyTIXT78VzkRazn9QDPuNh18TWe-
+
+## DFDC Dataset
+# DeepFake Detection Challenge (Facebook)
+# Official: https://www.kaggle.com/c/deepfake-detection-challenge
+# Note: Requires Kaggle API for download
+
+# WildDeepfake: https://huggingface.co/datasets/xingjunm/WildDeepfake/tree/main/deepfake_in_the_wild
+
+
+
+

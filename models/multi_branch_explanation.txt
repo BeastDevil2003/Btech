@@ -1,0 +1,79 @@
+MULTI_BRANCH.PY EXPLANATION
+===========================
+
+File:
+models/multi_branch.py
+
+Purpose
+-------
+This file defines the module that splits one shared feature map into multiple
+specialized branches.
+
+In simple words:
+it takes backbone features and sends them through three different analysis
+paths.
+
+
+Main Class
+----------
+MultiBranchModule(nn.Module)
+
+
+What It Creates
+---------------
+The module builds three submodules:
+
+1. SpatialBranch
+2. FrequencyBranch
+3. NoiseBranch
+
+All three receive the same input feature map.
+
+
+Input
+-----
+x
+Expected shape:
+(B*N, 256, H, W)
+
+In your pipeline, this is usually the projected `F_low` feature map from the
+backbone.
+
+
+Forward Flow
+------------
+1. Fs = self.spatial(x)
+2. Ff = self.frequency(x)
+3. Fn = self.noise(x)
+4. return Fs, Ff, Fn
+
+
+Meaning Of Outputs
+------------------
+1. Fs
+   Spatial branch output
+
+2. Ff
+   Frequency branch output
+
+3. Fn
+   Noise branch output
+
+These represent different possible forgery clues from the same frame-level
+feature map.
+
+
+Why This Design Is Useful
+-------------------------
+Deepfake artifacts can appear in different forms:
+- spatial inconsistencies
+- frequency-domain irregularities
+- noise or residual artifacts
+
+A multi-branch design lets the model learn these cues separately before fusion.
+
+
+Short Summary
+-------------
+This file sends the same backbone feature map into three specialized branches
+and returns their outputs as spatial, frequency, and noise representations.

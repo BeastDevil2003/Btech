@@ -1,0 +1,105 @@
+CGAF.PY EXPLANATION
+===================
+
+File:
+models/fusion/cgaf.py
+
+Purpose
+-------
+This file defines the branch fusion module.
+
+Its job is to compare the outputs of the spatial, frequency, and noise branches
+and combine them into one fused representation.
+
+
+Main Class
+----------
+CGAF(nn.Module)
+
+
+What It Creates
+---------------
+1. projection layers for each branch
+2. a learnable temperature parameter
+3. a refinement block
+
+
+Why Projection Layers Are Used
+------------------------------
+The code projects each branch through a 1x1 convolution:
+- proj_s
+- proj_f
+- proj_n
+
+This helps align branch features into comparable spaces before similarity is
+computed.
+
+
+compute_similarity(A, B)
+------------------------
+Purpose:
+compute cosine-style similarity between two feature maps.
+
+Flow:
+1. normalize along channel dimension
+2. multiply elementwise
+3. sum across channels
+
+Output:
+a single-channel similarity map
+
+
+Forward Flow
+------------
+1. project Fs, Ff, Fn
+2. compute similarity maps:
+   - Csf between spatial and frequency
+   - Csn between spatial and noise
+   - Cfn between frequency and noise
+3. convert similarities to gates using sigmoid and temperature
+4. normalize the frequency/noise gates
+5. modulate them using cross consistency from Cfn
+6. create auxiliary fused feature:
+   `fused_aux = Wf * Ff + Wn * Fn`
+7. combine with spatial branch using residual stabilization:
+   `Ffusion = Fs + 0.5 * fused_aux`
+8. refine fused result with conv block
+9. return fused feature and similarity maps
+
+
+Returned Outputs
+----------------
+1. Ffusion
+   Final fused feature map
+
+2. Csf
+   Similarity between spatial and frequency branches
+
+3. Csn
+   Similarity between spatial and noise branches
+
+4. Cfn
+   Similarity between frequency and noise branches
+
+
+Why This Is Useful
+------------------
+Not every branch is equally useful for every sample.
+This module tries to adaptively weight branch contributions based on how
+consistent or similar they are.
+
+
+consistency_loss(Fs, Ff, Fn)
+----------------------------
+This helper computes an L1 consistency loss:
+
+L1(Fs, Ff) + L1(Fs, Fn)
+
+It is a simple regularization idea encouraging branches to stay related.
+
+
+Short Summary
+-------------
+This file fuses the spatial, frequency, and noise branch outputs by measuring
+their similarity, generating adaptive gates, and producing one refined fused
+feature map for later temporal modeling.

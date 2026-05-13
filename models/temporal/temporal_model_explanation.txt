@@ -1,0 +1,162 @@
+TEMPORAL_MODEL.PY EXPLANATION
+=============================
+
+File:
+models/temporal/temporal_model.py
+
+Purpose
+-------
+This file defines the temporal modeling part of the network.
+
+Its job is to look across multiple frames and summarize the whole video into one
+video-level feature vector.
+
+
+Main Class
+----------
+TemporalModel(nn.Module)
+
+
+Constructor Parameters
+----------------------
+1. in_channels = 256
+2. embed_dim = 512
+3. num_heads = 8
+4. num_layers = 2
+5. max_len = 512
+
+
+Main Components
+---------------
+1. linear projection from feature channels to transformer embedding size
+2. layer normalization
+3. learnable positional embedding
+4. learnable weights for multi-scale temporal differences
+5. transformer encoder
+
+
+Input
+-----
+Ffusion
+Shape:
+(B, N, C, H, W)
+
+Meaning:
+- B = batch size
+- N = number of frames
+- C = channels
+- H, W = spatial size
+
+
+High-Level Idea
+---------------
+The temporal model does not directly use the full spatial map as a sequence.
+Instead, it:
+1. builds a soft spatial attention mask
+2. pools each frame into a compact vector
+3. computes temporal differences at multiple time gaps
+4. concatenates original and difference signals into one sequence
+5. feeds the sequence into a transformer
+6. averages the output to get one video feature
+
+
+get_spatial_mask(x)
+-------------------
+Purpose:
+build a soft spatial importance mask based on feature energy.
+
+Flow:
+1. compute absolute value of features
+2. average across channel dimension
+3. normalize per frame with min-max scaling
+
+Output:
+mask with shape like (B, N, 1, H, W)
+
+Purpose:
+highlight important regions and suppress background.
+
+
+global_pool_masked(x, mask)
+---------------------------
+Purpose:
+pool each frame into a feature vector using the spatial mask as weights.
+
+Flow:
+weighted sum of features divided by mask sum
+
+Output:
+Ft with shape (B, N, C)
+
+
+pad_time(x, target_len)
+-----------------------
+Purpose:
+pad temporal sequences by repeating the last element until the desired length
+is reached.
+
+Used when temporal differences have fewer timesteps than the original sequence.
+
+
+compute_differences(Ft)
+-----------------------
+Purpose:
+compute temporal change signals at multiple scales.
+
+It creates:
+- D1 = difference between neighboring frames
+- D2 = difference with gap 2
+- D4 = difference with gap 4
+
+Since these sequences become shorter, they are padded back to length N.
+
+
+Forward Flow
+------------
+1. build spatial mask from fused features
+2. pool masked features into per-frame vectors `Ft`
+3. compute D1, D2, D4 temporal differences
+4. concatenate:
+   - Ft
+   - weighted D1
+   - weighted D2
+   - weighted D4
+
+This creates a sequence of length about `4N`.
+
+5. project sequence to transformer embedding dimension
+6. add positional embeddings
+7. compute motion importance from D1
+8. add motion-aware bias to the sequence
+9. apply layer norm
+10. pass through transformer encoder
+11. average transformer outputs over time
+12. return final video feature vector
+
+
+Returned Output
+---------------
+video_feat
+Shape:
+(B, embed_dim), typically (B, 512)
+
+This is the compact video-level representation used by the output heads.
+
+
+Why This Design Is Useful
+-------------------------
+This module tries to combine:
+- spatially focused frame summaries
+- short-range motion
+- medium-range motion
+- longer-range motion
+- transformer-based temporal reasoning
+
+That makes it richer than using only simple frame averaging.
+
+
+Short Summary
+-------------
+This file converts the fused per-frame feature maps into one video-level
+representation by masking, pooling, computing multi-scale temporal differences,
+running a transformer encoder, and averaging the sequence output.

@@ -1,0 +1,749 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\WINDOWS\system32> & c:\Users\mayur\Desktop\dummmmmmmmy\btech\Scripts\Activate.ps1
+(btech) PS C:\WINDOWS\system32> & cd \Users\mayur\Desktop\dummmmmmmmy
+(btech) PS C:\Users\mayur\Desktop\dummmmmmmmy> python -m train.run_train_v3
+Cache directory : dataset/cache/ffpp_processed_v2
+Cache status    : 9431/9431 cached, 0 missing
+
+Identity-aware split: train=6061, val=3370
+AFAGNetV3 params: 19,060,315 total / 19,058,011 trainable
+
+Class balance — real: 1082, fake: 4979
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\nn\modules\module.py:1150: UserWarning: expandable_segments not supported on this platform (Triggered internally at ..\c10/cuda/CUDAAllocatorConfig.h:30.)
+  return t.to(device, dtype if t.is_floating_point() or t.is_complex() else None, non_blocking)
+
+LR groups: backbone=3.0e-05, rest=3.0e-04
+
+======================================================================
+SYSTEM & MODEL INFORMATION
+======================================================================
+Device:     GPU (CUDA)
+GPU Model:  NVIDIA GeForce RTX 3050 Laptop GPU
+GPU Memory: 4.00 GB
+CUDA:       12.1
+PyTorch:    2.2.2+cu121
+Params:     19,060,315 total / 19,058,011 trainable
+======================================================================
+
+
+======================================================================
+Training Started: 2026-04-03 14:38:03
+======================================================================
+Train: 6061 samples | Val: 3370
+AMP: True | MixUp: True | EMA: True | AltFreezing: False
+======================================================================
+
+Epoch 1/20 [TRAIN]: 100%|███| 3030/3030 [22:46<00:00,  2.22it/s, acc=48.6%, fake=23.2%, loss=0.2452, nan=0, real=50.4%]
+Epoch 1/20 [VAL]: 100%|█████████████████████████████████████| 1685/1685 [05:29<00:00,  5.11it/s, acc=8.3%, loss=0.2704]
+
+----------------------------------------------------------------------
+Epoch 1/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.24520  Acc: 48.6%  AUC: 0.4877  [Real: 50.4%  Fake: 23.2%]  NaN: 0
+Val    Loss: 0.27037  Acc: 8.3%  AUC: 0.5345
+  [youtube] acc: 100.0%
+  [actors] acc: 100.0%
+  [DeepFakeDetection] acc: 0.0%
+  [Deepfakes] acc: 0.0%
+  [Face2Face] acc: 0.0%
+  [FaceShifter] acc: 0.0%
+  [FaceSwap] acc: 0.0%
+  [NeuralTextures] acc: 0.0%
+LR: backbone:1.5e-05 | rest:1.5e-04   Time: 1696.1s
+  -> Warmup epoch, not counting toward patience.
+Epoch 2/20 [TRAIN]: 100%|███| 3030/3030 [23:05<00:00,  2.19it/s, acc=50.7%, fake=29.7%, loss=0.1463, nan=0, real=46.2%]
+Epoch 2/20 [VAL]: 100%|█████████████████████████████████████| 1685/1685 [05:30<00:00,  5.10it/s, acc=8.3%, loss=0.2630]
+
+----------------------------------------------------------------------
+Epoch 2/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.14627  Acc: 50.7%  AUC: 0.5006  [Real: 46.2%  Fake: 29.7%]  NaN: 0
+Val    Loss: 0.26300  Acc: 8.3%  AUC: 0.5833
+  [youtube] acc: 100.0%
+  [actors] acc: 100.0%
+  [DeepFakeDetection] acc: 0.0%
+  [Deepfakes] acc: 0.0%
+  [Face2Face] acc: 0.0%
+  [FaceShifter] acc: 0.0%
+  [FaceSwap] acc: 0.0%
+  [NeuralTextures] acc: 0.0%
+LR: backbone:3.0e-05 | rest:3.0e-04   Time: 1716.0s
+  -> Warmup epoch, not counting toward patience.
+Epoch 3/20 [TRAIN]: 100%|███| 3030/3030 [24:05<00:00,  2.10it/s, acc=55.7%, fake=40.9%, loss=0.1218, nan=0, real=45.5%]
+Epoch 3/20 [VAL]: 100%|████████████████████████████████████| 1685/1685 [05:30<00:00,  5.10it/s, acc=91.1%, loss=0.2548]
+
+----------------------------------------------------------------------
+Epoch 3/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.12180  Acc: 55.7%  AUC: 0.5973  [Real: 45.5%  Fake: 40.9%]  NaN: 0
+Val    Loss: 0.25476  Acc: 91.1%  AUC: 0.6645
+  [youtube] acc: 2.0%
+  [actors] acc: 1.2%
+  [DeepFakeDetection] acc: 100.0%
+  [Deepfakes] acc: 100.0%
+  [Face2Face] acc: 98.3%
+  [FaceShifter] acc: 100.0%
+  [FaceSwap] acc: 95.8%
+  [NeuralTextures] acc: 99.4%
+LR: backbone:3.0e-05 | rest:3.0e-04   Time: 1776.4s
+  -> BEST model saved (val AUC: 0.6645)
+
+Epoch 4/20 [TRAIN]: 100%|███| 3030/3030 [24:51<00:00,  2.03it/s, acc=73.5%, fake=51.9%, loss=0.0990, nan=0, real=67.3%]
+Epoch 4/20 [VAL]: 100%|████████████████████████████████████| 1685/1685 [05:30<00:00,  5.10it/s, acc=12.6%, loss=0.2477]
+
+----------------------------------------------------------------------
+Epoch 4/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.09898  Acc: 73.5%  AUC: 0.7923  [Real: 67.3%  Fake: 51.9%]  NaN: 0
+Val    Loss: 0.24772  Acc: 12.6%  AUC: 0.7687
+  [youtube] acc: 100.0%
+  [actors] acc: 100.0%
+  [DeepFakeDetection] acc: 9.1%
+  [Deepfakes] acc: 6.1%
+  [Face2Face] acc: 0.3%
+  [FaceShifter] acc: 0.3%
+  [FaceSwap] acc: 0.0%
+  [NeuralTextures] acc: 0.6%
+LR: backbone:2.7e-05 | rest:2.7e-04   Time: 1822.6s
+  -> BEST model saved (val AUC: 0.7687)
+
+Epoch 5/20 [TRAIN]: 100%|███| 3030/3030 [24:10<00:00,  2.09it/s, acc=76.6%, fake=57.2%, loss=0.0862, nan=0, real=67.5%]
+Epoch 5/20 [VAL]: 100%|█████████████████████████████████████| 1685/1685 [05:30<00:00,  5.10it/s, acc=9.7%, loss=0.2416]
+
+----------------------------------------------------------------------
+Epoch 5/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.08619  Acc: 76.6%  AUC: 0.8462  [Real: 67.5%  Fake: 57.2%]  NaN: 0
+Val    Loss: 0.24157  Acc: 9.7%  AUC: 0.8408
+  [youtube] acc: 100.0%
+  [actors] acc: 100.0%
+  [DeepFakeDetection] acc: 3.3%
+  [Deepfakes] acc: 1.1%
+  [Face2Face] acc: 0.0%
+  [FaceShifter] acc: 0.0%
+  [FaceSwap] acc: 0.0%
+  [NeuralTextures] acc: 0.0%
+LR: backbone:2.0e-05 | rest:2.0e-04   Time: 1780.9s
+  -> BEST model saved (val AUC: 0.8408)
+
+Epoch 6/20 [TRAIN]: 100%|███| 3030/3030 [23:17<00:00,  2.17it/s, acc=82.4%, fake=61.8%, loss=0.0760, nan=0, real=67.8%]
+Epoch 6/20 [VAL]: 100%|████████████████████████████████████| 1685/1685 [05:33<00:00,  5.06it/s, acc=10.9%, loss=0.2158]
+
+----------------------------------------------------------------------
+Epoch 6/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.07602  Acc: 82.4%  AUC: 0.9020  [Real: 67.8%  Fake: 61.8%]  NaN: 0
+Val    Loss: 0.21576  Acc: 10.9%  AUC: 0.8837
+  [youtube] acc: 100.0%
+  [actors] acc: 100.0%
+  [DeepFakeDetection] acc: 6.0%
+  [Deepfakes] acc: 2.2%
+  [Face2Face] acc: 0.0%
+  [FaceShifter] acc: 0.0%
+  [FaceSwap] acc: 0.0%
+  [NeuralTextures] acc: 0.0%
+LR: backbone:1.1e-05 | rest:1.0e-04   Time: 1730.9s
+  -> BEST model saved (val AUC: 0.8837)
+
+Epoch 7/20 [TRAIN]: 100%|███| 3030/3030 [24:07<00:00,  2.09it/s, acc=87.4%, fake=67.3%, loss=0.0678, nan=0, real=68.4%]
+Epoch 7/20 [VAL]: 100%|████████████████████████████████████| 1685/1685 [05:34<00:00,  5.04it/s, acc=22.5%, loss=0.1686]
+
+----------------------------------------------------------------------
+Epoch 7/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.06782  Acc: 87.4%  AUC: 0.9343  [Real: 68.4%  Fake: 67.3%]  NaN: 0
+Val    Loss: 0.16859  Acc: 22.5%  AUC: 0.9175
+  [youtube] acc: 100.0%
+  [actors] acc: 100.0%
+  [DeepFakeDetection] acc: 26.2%
+  [Deepfakes] acc: 18.9%
+  [Face2Face] acc: 10.8%
+  [FaceShifter] acc: 3.1%
+  [FaceSwap] acc: 1.4%
+  [NeuralTextures] acc: 4.2%
+LR: backbone:3.8e-06 | rest:3.0e-05   Time: 1781.5s
+  -> BEST model saved (val AUC: 0.9175)
+
+Epoch 8/20 [TRAIN]: 100%|███| 3030/3030 [23:24<00:00,  2.16it/s, acc=87.5%, fake=67.1%, loss=0.0720, nan=0, real=66.8%]
+Epoch 8/20 [VAL]: 100%|████████████████████████████████████| 1685/1685 [05:33<00:00,  5.06it/s, acc=17.9%, loss=0.2371]
+
+----------------------------------------------------------------------
+Epoch 8/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.07198  Acc: 87.5%  AUC: 0.9309  [Real: 66.8%  Fake: 67.1%]  NaN: 0
+Val    Loss: 0.23715  Acc: 17.9%  AUC: 0.9331
+  [youtube] acc: 100.0%
+  [actors] acc: 100.0%
+  [DeepFakeDetection] acc: 20.6%
+  [Deepfakes] acc: 7.5%
+  [Face2Face] acc: 4.7%
+  [FaceShifter] acc: 0.8%
+  [FaceSwap] acc: 0.6%
+  [NeuralTextures] acc: 1.7%
+LR: backbone:3.0e-05 | rest:3.0e-04   Time: 1737.4s
+  -> BEST model saved (val AUC: 0.9331)
+
+Epoch 9/20 [TRAIN]:  38%|█▏ | 1142/3030 [10:50<17:54,  1.76it/s, acc=89.8%, fake=66.4%, loss=0.0616, nan=0, real=70.7%]
+Traceback (most recent call last):
+  File "C:\Users\mayur\AppData\Local\Programs\Python\Python310\lib\runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Users\mayur\AppData\Local\Programs\Python\Python310\lib\runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\train\run_train_v3.py", line 152, in <module>
+    main()
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\train\run_train_v3.py", line 124, in main
+    history = train(
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\train\train_pipeline_v3.py", line 678, in train
+    train_m = train_one_epoch(
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\train\train_pipeline_v3.py", line 390, in train_one_epoch
+    raise RuntimeError(f"Too many NaN batches ({nan_count}). Check freq branch dtype and CGAF.")
+RuntimeError: Too many NaN batches (21). Check freq branch dtype and CGAF.
+(btech) PS C:\Users\mayur\Desktop\dummmmmmmmy> python -m train.run_train_v3
+Cache directory : dataset/cache/ffpp_processed_v2
+Cache status    : 9431/9431 cached, 0 missing
+
+Identity-aware split: train=6061, val=3370
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+AFAGNetV3 params: 19,060,315 total / 19,058,011 trainable
+
+Resuming from checkpoint: checkpoints/best_model.pth
+Resuming from epoch 8 (will train epochs 9–20)
+
+Class balance — real: 1082, fake: 4979
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\nn\modules\module.py:1150: UserWarning: expandable_segments not supported on this platform (Triggered internally at ..\c10/cuda/CUDAAllocatorConfig.h:30.)
+  return t.to(device, dtype if t.is_floating_point() or t.is_complex() else None, non_blocking)
+
+LR groups: backbone=3.0e-05, rest=3.0e-04
+Resuming training from epoch 9
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\optim\lr_scheduler.py:143: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  warnings.warn("Detected call of `lr_scheduler.step()` before `optimizer.step()`. "
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\optim\lr_scheduler.py:156: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+
+======================================================================
+SYSTEM & MODEL INFORMATION
+======================================================================
+Device:     GPU (CUDA)
+GPU Model:  NVIDIA GeForce RTX 3050 Laptop GPU
+GPU Memory: 4.00 GB
+CUDA:       12.1
+PyTorch:    2.2.2+cu121
+Params:     19,060,315 total / 19,058,011 trainable
+======================================================================
+
+
+======================================================================
+Training Started: 2026-04-03 18:53:54
+======================================================================
+Train: 6061 samples | Val: 3370
+AMP: True | MixUp: True | EMA: True | AltFreezing: False
+Resuming from epoch 8 — training epochs 9–20
+======================================================================
+
+Epoch 9/20 [TRAIN]: 100%|███| 3030/3030 [22:47<00:00,  2.22it/s, acc=90.2%, fake=66.8%, loss=0.0635, nan=0, real=70.1%]
+Epoch 9/20 [VAL]: 100%|████████████████████████████████████| 1685/1685 [05:32<00:00,  5.06it/s, acc=70.9%, loss=0.1613]
+
+----------------------------------------------------------------------
+Epoch 9/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.06353  Acc: 90.2%  AUC: 0.9528  [Real: 70.1%  Fake: 66.8%]  NaN: 0
+Val    Loss: 0.16125  Acc: 70.9%  AUC: 0.9638
+  [youtube] acc: 98.0%
+  [actors] acc: 96.3%
+  [DeepFakeDetection] acc: 70.6%
+  [Deepfakes] acc: 73.1%
+  [Face2Face] acc: 76.1%
+  [FaceShifter] acc: 60.0%
+  [FaceSwap] acc: 62.2%
+  [NeuralTextures] acc: 63.3%
+LR: backbone:2.3e-05 | rest:2.3e-04   Time: 1700.5s
+  -> BEST model saved (val AUC: 0.9638)
+
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\optim\lr_scheduler.py:156: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+Epoch 10/20 [TRAIN]: 100%|██| 3030/3030 [23:10<00:00,  2.18it/s, acc=92.4%, fake=68.9%, loss=0.0555, nan=0, real=69.9%]
+Epoch 10/20 [VAL]: 100%|███████████████████████████████████| 1685/1685 [05:31<00:00,  5.09it/s, acc=76.4%, loss=0.1307]
+
+----------------------------------------------------------------------
+Epoch 10/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.05555  Acc: 92.4%  AUC: 0.9664  [Real: 69.9%  Fake: 68.9%]  NaN: 0
+Val    Loss: 0.13066  Acc: 76.4%  AUC: 0.9597
+  [youtube] acc: 96.5%
+  [actors] acc: 93.8%
+  [DeepFakeDetection] acc: 81.2%
+  [Deepfakes] acc: 78.6%
+  [Face2Face] acc: 76.7%
+  [FaceShifter] acc: 71.1%
+  [FaceSwap] acc: 58.3%
+  [NeuralTextures] acc: 64.4%
+LR: backbone:2.0e-05 | rest:2.0e-04   Time: 1721.2s
+  -> No improvement (best AUC: 0.9638). Patience: 1/7
+
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\optim\lr_scheduler.py:156: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+Epoch 11/20 [TRAIN]: 100%|██| 3030/3030 [23:14<00:00,  2.17it/s, acc=94.2%, fake=70.0%, loss=0.0485, nan=0, real=71.4%]
+Epoch 11/20 [VAL]: 100%|███████████████████████████████████| 1685/1685 [05:31<00:00,  5.08it/s, acc=90.4%, loss=0.0701]
+
+----------------------------------------------------------------------
+Epoch 11/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.04854  Acc: 94.2%  AUC: 0.9754  [Real: 71.4%  Fake: 70.0%]  NaN: 0
+Val    Loss: 0.07013  Acc: 90.4%  AUC: 0.9676
+  [youtube] acc: 91.0%
+  [actors] acc: 92.6%
+  [DeepFakeDetection] acc: 93.6%
+  [Deepfakes] acc: 92.2%
+  [Face2Face] acc: 91.9%
+  [FaceShifter] acc: 85.8%
+  [FaceSwap] acc: 86.4%
+  [NeuralTextures] acc: 83.1%
+LR: backbone:1.8e-05 | rest:1.8e-04   Time: 1726.2s
+  -> BEST model saved (val AUC: 0.9676)
+
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\optim\lr_scheduler.py:156: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+Epoch 12/20 [TRAIN]: 100%|██| 3030/3030 [23:07<00:00,  2.18it/s, acc=94.8%, fake=72.4%, loss=0.0464, nan=0, real=71.3%]
+Epoch 12/20 [VAL]: 100%|███████████████████████████████████| 1685/1685 [05:29<00:00,  5.11it/s, acc=84.3%, loss=0.1082]
+
+----------------------------------------------------------------------
+Epoch 12/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.04640  Acc: 94.8%  AUC: 0.9805  [Real: 71.3%  Fake: 72.4%]  NaN: 0
+Val    Loss: 0.10820  Acc: 84.3%  AUC: 0.9575
+  [youtube] acc: 94.0%
+  [actors] acc: 93.8%
+  [DeepFakeDetection] acc: 87.4%
+  [Deepfakes] acc: 84.2%
+  [Face2Face] acc: 87.8%
+  [FaceShifter] acc: 76.1%
+  [FaceSwap] acc: 82.5%
+  [NeuralTextures] acc: 72.5%
+LR: backbone:1.5e-05 | rest:1.5e-04   Time: 1717.7s
+  -> No improvement (best AUC: 0.9676). Patience: 1/7
+
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\optim\lr_scheduler.py:156: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+Epoch 13/20 [TRAIN]: 100%|██| 3030/3030 [23:05<00:00,  2.19it/s, acc=96.1%, fake=72.1%, loss=0.0387, nan=0, real=71.9%]
+Epoch 13/20 [VAL]: 100%|███████████████████████████████████| 1685/1685 [05:28<00:00,  5.12it/s, acc=83.6%, loss=0.1200]
+
+----------------------------------------------------------------------
+Epoch 13/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.03869  Acc: 96.1%  AUC: 0.9875  [Real: 71.9%  Fake: 72.1%]  NaN: 0
+Val    Loss: 0.11995  Acc: 83.6%  AUC: 0.9482
+  [youtube] acc: 93.5%
+  [actors] acc: 93.8%
+  [DeepFakeDetection] acc: 87.7%
+  [Deepfakes] acc: 83.1%
+  [Face2Face] acc: 83.9%
+  [FaceShifter] acc: 76.9%
+  [FaceSwap] acc: 79.4%
+  [NeuralTextures] acc: 72.5%
+LR: backbone:1.3e-05 | rest:1.2e-04   Time: 1714.0s
+  -> No improvement (best AUC: 0.9676). Patience: 2/7
+
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\optim\lr_scheduler.py:156: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+Epoch 14/20 [TRAIN]: 100%|██| 3030/3030 [23:03<00:00,  2.19it/s, acc=95.5%, fake=72.5%, loss=0.0417, nan=0, real=71.4%]
+Epoch 14/20 [VAL]: 100%|███████████████████████████████████| 1685/1685 [05:30<00:00,  5.10it/s, acc=80.7%, loss=0.1514]
+
+----------------------------------------------------------------------
+Epoch 14/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.04171  Acc: 95.5%  AUC: 0.9849  [Real: 71.4%  Fake: 72.5%]  NaN: 0
+Val    Loss: 0.15143  Acc: 80.7%  AUC: 0.9248
+  [youtube] acc: 95.0%
+  [actors] acc: 95.1%
+  [DeepFakeDetection] acc: 82.9%
+  [Deepfakes] acc: 78.6%
+  [Face2Face] acc: 79.4%
+  [FaceShifter] acc: 76.4%
+  [FaceSwap] acc: 80.0%
+  [NeuralTextures] acc: 70.6%
+LR: backbone:1.1e-05 | rest:9.9e-05   Time: 1714.2s
+  -> No improvement (best AUC: 0.9676). Patience: 3/7
+
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\optim\lr_scheduler.py:156: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+Epoch 15/20 [TRAIN]: 100%|██| 3030/3030 [23:02<00:00,  2.19it/s, acc=96.4%, fake=72.7%, loss=0.0376, nan=0, real=70.4%]
+Epoch 15/20 [VAL]: 100%|███████████████████████████████████| 1685/1685 [05:29<00:00,  5.11it/s, acc=88.6%, loss=0.0928]
+
+----------------------------------------------------------------------
+Epoch 15/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.03757  Acc: 96.4%  AUC: 0.9871  [Real: 70.4%  Fake: 72.7%]  NaN: 0
+Val    Loss: 0.09280  Acc: 88.6%  AUC: 0.9676
+  [youtube] acc: 95.5%
+  [actors] acc: 93.8%
+  [DeepFakeDetection] acc: 93.0%
+  [Deepfakes] acc: 85.6%
+  [Face2Face] acc: 89.4%
+  [FaceShifter] acc: 82.8%
+  [FaceSwap] acc: 88.6%
+  [NeuralTextures] acc: 76.1%
+LR: backbone:8.3e-06 | rest:7.6e-05   Time: 1712.3s
+  -> BEST model saved (val AUC: 0.9676)
+
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\optim\lr_scheduler.py:156: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+Epoch 16/20 [TRAIN]: 100%|██| 3030/3030 [23:03<00:00,  2.19it/s, acc=96.8%, fake=73.3%, loss=0.0371, nan=0, real=72.2%]
+Epoch 16/20 [VAL]: 100%|███████████████████████████████████| 1685/1685 [05:29<00:00,  5.12it/s, acc=89.1%, loss=0.0924]
+
+----------------------------------------------------------------------
+Epoch 16/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.03709  Acc: 96.8%  AUC: 0.9875  [Real: 72.2%  Fake: 73.3%]  NaN: 0
+Val    Loss: 0.09245  Acc: 89.1%  AUC: 0.9690
+  [youtube] acc: 96.0%
+  [actors] acc: 95.1%
+  [DeepFakeDetection] acc: 93.6%
+  [Deepfakes] acc: 88.6%
+  [Face2Face] acc: 87.2%
+  [FaceShifter] acc: 84.4%
+  [FaceSwap] acc: 86.1%
+  [NeuralTextures] acc: 77.2%
+LR: backbone:6.2e-06 | rest:5.4e-05   Time: 1713.0s
+  -> BEST model saved (val AUC: 0.9690)
+
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\optim\lr_scheduler.py:156: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+Epoch 17/20 [TRAIN]: 100%|██| 3030/3030 [23:01<00:00,  2.19it/s, acc=97.2%, fake=72.7%, loss=0.0339, nan=0, real=75.0%]
+Epoch 17/20 [VAL]: 100%|███████████████████████████████████| 1685/1685 [05:29<00:00,  5.12it/s, acc=85.0%, loss=0.1232]
+
+----------------------------------------------------------------------
+Epoch 17/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.03388  Acc: 97.2%  AUC: 0.9897  [Real: 75.0%  Fake: 72.7%]  NaN: 0
+Val    Loss: 0.12318  Acc: 85.0%  AUC: 0.9530
+  [youtube] acc: 96.5%
+  [actors] acc: 96.3%
+  [DeepFakeDetection] acc: 87.7%
+  [Deepfakes] acc: 86.7%
+  [Face2Face] acc: 81.7%
+  [FaceShifter] acc: 81.4%
+  [FaceSwap] acc: 85.3%
+  [NeuralTextures] acc: 71.1%
+LR: backbone:4.4e-06 | rest:3.6e-05   Time: 1711.1s
+  -> No improvement (best AUC: 0.9690). Patience: 1/7
+
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\optim\lr_scheduler.py:156: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+Epoch 18/20 [TRAIN]: 100%|██| 3030/3030 [23:07<00:00,  2.18it/s, acc=97.5%, fake=73.0%, loss=0.0307, nan=0, real=73.9%]
+Epoch 18/20 [VAL]: 100%|███████████████████████████████████| 1685/1685 [05:32<00:00,  5.07it/s, acc=87.0%, loss=0.1136]
+
+----------------------------------------------------------------------
+Epoch 18/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.03075  Acc: 97.5%  AUC: 0.9925  [Real: 73.9%  Fake: 73.0%]  NaN: 0
+Val    Loss: 0.11359  Acc: 87.0%  AUC: 0.9591
+  [youtube] acc: 96.5%
+  [actors] acc: 98.8%
+  [DeepFakeDetection] acc: 91.7%
+  [Deepfakes] acc: 86.1%
+  [Face2Face] acc: 84.4%
+  [FaceShifter] acc: 82.8%
+  [FaceSwap] acc: 85.6%
+  [NeuralTextures] acc: 71.4%
+LR: backbone:2.9e-06 | rest:2.1e-05   Time: 1719.4s
+  -> No improvement (best AUC: 0.9690). Patience: 2/7
+
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\optim\lr_scheduler.py:156: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+Epoch 19/20 [TRAIN]: 100%|██| 3030/3030 [23:12<00:00,  2.18it/s, acc=97.8%, fake=74.3%, loss=0.0294, nan=0, real=72.4%]
+Epoch 19/20 [VAL]: 100%|███████████████████████████████████| 1685/1685 [05:31<00:00,  5.08it/s, acc=83.3%, loss=0.1461]
+
+----------------------------------------------------------------------
+Epoch 19/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.02942  Acc: 97.8%  AUC: 0.9941  [Real: 72.4%  Fake: 74.3%]  NaN: 0
+Val    Loss: 0.14606  Acc: 83.3%  AUC: 0.9384
+  [youtube] acc: 97.0%
+  [actors] acc: 98.8%
+  [DeepFakeDetection] acc: 89.6%
+  [Deepfakes] acc: 83.1%
+  [Face2Face] acc: 77.2%
+  [FaceShifter] acc: 75.8%
+  [FaceSwap] acc: 83.3%
+  [NeuralTextures] acc: 63.1%
+LR: backbone:1.9e-06 | rest:1.0e-05   Time: 1723.9s
+  -> No improvement (best AUC: 0.9690). Patience: 3/7
+
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\optim\lr_scheduler.py:156: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+Epoch 20/20 [TRAIN]: 100%|██| 3030/3030 [23:16<00:00,  2.17it/s, acc=97.6%, fake=73.0%, loss=0.0303, nan=0, real=72.5%]
+Epoch 20/20 [VAL]: 100%|███████████████████████████████████| 1685/1685 [06:08<00:00,  4.57it/s, acc=80.2%, loss=0.1816]
+
+----------------------------------------------------------------------
+Epoch 20/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.03032  Acc: 97.6%  AUC: 0.9926  [Real: 72.5%  Fake: 73.0%]  NaN: 0
+Val    Loss: 0.18156  Acc: 80.2%  AUC: 0.9139
+  [youtube] acc: 98.0%
+  [actors] acc: 100.0%
+  [DeepFakeDetection] acc: 85.3%
+  [Deepfakes] acc: 80.6%
+  [Face2Face] acc: 73.9%
+  [FaceShifter] acc: 75.0%
+  [FaceSwap] acc: 77.8%
+  [NeuralTextures] acc: 61.7%
+LR: backbone:1.2e-06 | rest:3.3e-06   Time: 1765.0s
+  -> No improvement (best AUC: 0.9690). Patience: 4/7
+
+
+======================================================================
+TRAINING COMPLETE
+======================================================================
+Total Time  : 5.73h (344.1min)
+Best Val AUC: 0.9690
+Saved: checkpoints\best_model.pth
+EMA  : checkpoints\ema_model.pth
+Logs : experiments/logs\epoch_results_v3.txt
+
+Finished: 2026-04-04 00:37:57
+======================================================================
+
+
+Best Val AUC: 0.9690
+
+(btech) PS C:\Users\mayur\Desktop\dummmmmmmmy> python -m train.run_train_v3
+Cache directory : dataset/cache/ffpp_processed_v2
+Cache status    : 9431/9431 cached, 0 missing
+
+Identity-aware split: train=6061, val=3370
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+AFAGNetV3 params: 19,060,315 total / 19,058,011 trainable
+
+Resuming from checkpoint: checkpoints/best_model.pth
+Resuming from epoch 20 (will train epochs 21–20)
+
+Class balance — real: 1082, fake: 4979
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\nn\modules\module.py:1150: UserWarning: expandable_segments not supported on this platform (Triggered internally at ..\c10/cuda/CUDAAllocatorConfig.h:30.)
+  return t.to(device, dtype if t.is_floating_point() or t.is_complex() else None, non_blocking)
+
+LR groups: backbone=3.0e-05, rest=3.0e-04
+Resuming training from epoch 21
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\optim\lr_scheduler.py:143: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  warnings.warn("Detected call of `lr_scheduler.step()` before `optimizer.step()`. "
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\optim\lr_scheduler.py:156: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+
+======================================================================
+SYSTEM & MODEL INFORMATION
+======================================================================
+Device:     GPU (CUDA)
+GPU Model:  NVIDIA GeForce RTX 3050 Laptop GPU
+GPU Memory: 4.00 GB
+CUDA:       12.1
+PyTorch:    2.2.2+cu121
+Params:     19,060,315 total / 19,058,011 trainable
+======================================================================
+
+
+======================================================================
+Training Started: 2026-04-04 00:57:04
+======================================================================
+Train: 6061 samples | Val: 3370
+AMP: True | MixUp: True | EMA: True | AltFreezing: False
+Resuming from epoch 20 — training epochs 21–20
+======================================================================
+
+
+======================================================================
+TRAINING COMPLETE
+======================================================================
+Total Time  : 0.00h (0.0min)
+Best Val AUC: 0.0000
+Saved: checkpoints\best_model.pth
+EMA  : checkpoints\ema_model.pth
+Logs : experiments/logs\epoch_results_v3.txt
+
+Finished: 2026-04-04 00:57:04
+======================================================================
+
+
+Best Val AUC: 0.0000
+(btech) PS C:\Users\mayur\Desktop\dummmmmmmmy> python -m train.run_train_v3
+Cache directory : dataset/cache/ffpp_processed_v2
+Cache status    : 9431/9431 cached, 0 missing
+
+Identity-aware split: train=6061, val=3370
+AFAGNetV3 params: 19,060,315 total / 19,058,011 trainable
+
+Resuming from checkpoint: checkpoints/best_model.pth
+Resuming from epoch 20 (will train epochs 21–20)
+
+Class balance — real: 1082, fake: 4979
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\nn\modules\module.py:1150: UserWarning: expandable_segments not supported on this platform (Triggered internally at ..\c10/cuda/CUDAAllocatorConfig.h:30.)
+  return t.to(device, dtype if t.is_floating_point() or t.is_complex() else None, non_blocking)
+
+LR groups: backbone=3.0e-05, rest=3.0e-04
+Resuming training from epoch 21
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\optim\lr_scheduler.py:143: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  warnings.warn("Detected call of `lr_scheduler.step()` before `optimizer.step()`. "
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\optim\lr_scheduler.py:156: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+
+======================================================================
+SYSTEM & MODEL INFORMATION
+======================================================================
+Device:     GPU (CUDA)
+GPU Model:  NVIDIA GeForce RTX 3050 Laptop GPU
+GPU Memory: 4.00 GB
+CUDA:       12.1
+PyTorch:    2.2.2+cu121
+Params:     19,060,315 total / 19,058,011 trainable
+======================================================================
+
+
+======================================================================
+Training Started: 2026-04-04 00:57:42
+======================================================================
+Train: 6061 samples | Val: 3370
+AMP: True | MixUp: True | EMA: True | AltFreezing: False
+Resuming from epoch 20 — training epochs 21–50
+======================================================================
+
+Epoch 21/50 [TRAIN]:   1%|    | 26/3030 [00:13<26:35,  1.88it/s, acc=98.1%, fake=65.4%, loss=0.0237, nan=0, real=75.0%]
+Traceback (most recent call last):
+  File "C:\Users\mayur\AppData\Local\Programs\Python\Python310\lib\runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Users\mayur\AppData\Local\Programs\Python\Python310\lib\runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\train\run_train_v3.py", line 174, in <module>
+    main()
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\train\run_train_v3.py", line 145, in main
+    history = train(
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\train\train_pipeline_v3.py", line 701, in train
+    train_m = train_one_epoch(
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\train\train_pipeline_v3.py", line 335, in train_one_epoch
+    for batch_idx, batch in enumerate(progress):
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\tqdm\std.py", line 1181, in __iter__
+    for obj in iterable:
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\utils\data\dataloader.py", line 631, in __next__
+    data = self._next_data()
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\utils\data\dataloader.py", line 675, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\utils\data\_utils\fetch.py", line 49, in fetch
+    data = self.dataset.__getitems__(possibly_batched_index)
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\utils\data\dataset.py", line 399, in __getitems__
+    return [self.dataset[self.indices[idx]] for idx in indices]
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\utils\data\dataset.py", line 399, in <listcomp>
+    return [self.dataset[self.indices[idx]] for idx in indices]
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\data\loader\ffpp_dataset_v2.py", line 257, in __getitem__
+    sample = torch.load(cache_path, map_location="cpu")
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\serialization.py", line 1026, in load
+    return _load(opened_zipfile,
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\serialization.py", line 1438, in _load
+    result = unpickler.load()
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\serialization.py", line 1408, in persistent_load
+    typed_storage = load_tensor(dtype, nbytes, key, _maybe_decode_ascii(location))
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\serialization.py", line 1373, in load_tensor
+    storage = zip_file.get_storage_from_record(name, numel, torch.UntypedStorage)._typed_storage()._untyped_storage
+KeyboardInterrupt
+(btech) PS C:\Users\mayur\Desktop\dummmmmmmmy> python -m train.run_train_v3
+Cache directory : dataset/cache/ffpp_processed_v2
+Cache status    : 9431/9431 cached, 0 missing
+
+Identity-aware split: train=6061, val=3370
+AFAGNetV3 params: 19,060,315 total / 19,058,011 trainable
+
+Resuming from checkpoint: checkpoints/best_model.pth
+Resuming from epoch 20 (will train epochs 21–20)
+
+Class balance — real: 1082, fake: 4979
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\nn\modules\module.py:1150: UserWarning: expandable_segments not supported on this platform (Triggered internally at ..\c10/cuda/CUDAAllocatorConfig.h:30.)
+  return t.to(device, dtype if t.is_floating_point() or t.is_complex() else None, non_blocking)
+
+LR groups: backbone=3.0e-05, rest=3.0e-04
+Resuming training from epoch 21
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\optim\lr_scheduler.py:143: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  warnings.warn("Detected call of `lr_scheduler.step()` before `optimizer.step()`. "
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\optim\lr_scheduler.py:156: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+
+======================================================================
+SYSTEM & MODEL INFORMATION
+======================================================================
+Device:     GPU (CUDA)
+GPU Model:  NVIDIA GeForce RTX 3050 Laptop GPU
+GPU Memory: 4.00 GB
+CUDA:       12.1
+PyTorch:    2.2.2+cu121
+Params:     19,060,315 total / 19,058,011 trainable
+======================================================================
+
+
+======================================================================
+Training Started: 2026-04-04 00:58:48
+======================================================================
+Train: 6061 samples | Val: 3370
+AMP: True | MixUp: True | EMA: True | AltFreezing: False
+Resuming from epoch 20 — training epochs 21–50
+======================================================================
+
+Epoch 21/50 [TRAIN]: 100%|██| 3030/3030 [23:32<00:00,  2.14it/s, acc=96.3%, fake=70.9%, loss=0.0395, nan=0, real=73.1%]
+Epoch 21/50 [VAL]: 100%|███████████████████████████████████| 1685/1685 [05:31<00:00,  5.08it/s, acc=74.4%, loss=0.2431]
+
+----------------------------------------------------------------------
+Epoch 21/50 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.03950  Acc: 96.3%  AUC: 0.9841  [Real: 73.1%  Fake: 70.9%]  NaN: 0
+Val    Loss: 0.24309  Acc: 74.4%  AUC: 0.9261
+  [youtube] acc: 99.0%
+  [actors] acc: 100.0%
+  [DeepFakeDetection] acc: 80.4%
+  [Deepfakes] acc: 76.4%
+  [Face2Face] acc: 61.9%
+  [FaceShifter] acc: 70.8%
+  [FaceSwap] acc: 68.1%
+  [NeuralTextures] acc: 53.6%
+LR: backbone:2.1e-05 | rest:2.1e-04   Time: 1744.9s
+  -> BEST model saved (val AUC: 0.9261)
+
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\optim\lr_scheduler.py:156: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+Epoch 22/50 [TRAIN]: 100%|██| 3030/3030 [23:41<00:00,  2.13it/s, acc=96.7%, fake=71.2%, loss=0.0361, nan=0, real=73.8%]
+Epoch 22/50 [VAL]: 100%|███████████████████████████████████| 1685/1685 [05:30<00:00,  5.10it/s, acc=74.4%, loss=0.2311]
+
+----------------------------------------------------------------------
+Epoch 22/50 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.03610  Acc: 96.7%  AUC: 0.9893  [Real: 73.8%  Fake: 71.2%]  NaN: 0
+Val    Loss: 0.23111  Acc: 74.4%  AUC: 0.9204
+  [youtube] acc: 100.0%
+  [actors] acc: 100.0%
+  [DeepFakeDetection] acc: 80.0%
+  [Deepfakes] acc: 76.7%
+  [Face2Face] acc: 67.8%
+  [FaceShifter] acc: 68.6%
+  [FaceSwap] acc: 66.7%
+  [NeuralTextures] acc: 52.5%
+LR: backbone:2.0e-05 | rest:2.0e-04   Time: 1751.6s
+  -> No improvement (best AUC: 0.9261). Patience: 1/7
+
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\optim\lr_scheduler.py:156: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+Epoch 23/50 [TRAIN]:  43%|▊ | 1297/3030 [10:08<13:32,  2.13it/s, acc=97.0%, fake=71.4%, loss=0.0364, nan=0, real=73.4%]
+Traceback (most recent call last):
+  File "C:\Users\mayur\AppData\Local\Programs\Python\Python310\lib\runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Users\mayur\AppData\Local\Programs\Python\Python310\lib\runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\train\run_train_v3.py", line 174, in <module>
+    main()
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\train\run_train_v3.py", line 145, in main
+    history = train(
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\train\train_pipeline_v3.py", line 701, in train
+    train_m = train_one_epoch(
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\train\train_pipeline_v3.py", line 400, in train_one_epoch
+    scaler.scale(loss).backward()
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\_tensor.py", line 522, in backward
+    torch.autograd.backward(
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\autograd\__init__.py", line 266, in backward
+    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn

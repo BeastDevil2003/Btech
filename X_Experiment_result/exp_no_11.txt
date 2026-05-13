@@ -1,0 +1,204 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\WINDOWS\system32> & c:\Users\mayur\Desktop\dummmmmmmmy\btech\Scripts\Activate.ps1
+(btech) PS C:\WINDOWS\system32> & cd \Users\mayur\Desktop\dummmmmmmmy
+(btech) PS C:\Users\mayur\Desktop\dummmmmmmmy> python -m train.run_train_v3
+Cache directory : dataset/cache/ffpp_processed_v2
+Cache status    : 9431/9431 cached, 0 missing
+
+Identity-aware split: train=6061, val=3370
+AFAGNetV3 params: 19,060,315 total / 19,058,011 trainable
+
+Class balance — real: 1082, fake: 4979
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\nn\modules\module.py:1150: UserWarning: expandable_segments not supported on this platform (Triggered internally at ..\c10/cuda/CUDAAllocatorConfig.h:30.)
+  return t.to(device, dtype if t.is_floating_point() or t.is_complex() else None, non_blocking)
+
+LR groups: backbone=3.0e-05, rest=3.0e-04
+
+======================================================================
+SYSTEM & MODEL INFORMATION
+======================================================================
+Device:     GPU (CUDA)
+GPU Model:  NVIDIA GeForce RTX 3050 Laptop GPU
+GPU Memory: 4.00 GB
+CUDA:       12.1
+PyTorch:    2.2.2+cu121
+Params:     19,060,315 total / 19,058,011 trainable
+======================================================================
+
+
+======================================================================
+Training Started: 2026-04-03 14:38:03
+======================================================================
+Train: 6061 samples | Val: 3370
+AMP: True | MixUp: True | EMA: True | AltFreezing: False
+======================================================================
+
+Epoch 1/20 [TRAIN]: 100%|███| 3030/3030 [22:46<00:00,  2.22it/s, acc=48.6%, fake=23.2%, loss=0.2452, nan=0, real=50.4%]
+Epoch 1/20 [VAL]: 100%|█████████████████████████████████████| 1685/1685 [05:29<00:00,  5.11it/s, acc=8.3%, loss=0.2704]
+
+----------------------------------------------------------------------
+Epoch 1/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.24520  Acc: 48.6%  AUC: 0.4877  [Real: 50.4%  Fake: 23.2%]  NaN: 0
+Val    Loss: 0.27037  Acc: 8.3%  AUC: 0.5345
+  [youtube] acc: 100.0%
+  [actors] acc: 100.0%
+  [DeepFakeDetection] acc: 0.0%
+  [Deepfakes] acc: 0.0%
+  [Face2Face] acc: 0.0%
+  [FaceShifter] acc: 0.0%
+  [FaceSwap] acc: 0.0%
+  [NeuralTextures] acc: 0.0%
+LR: backbone:1.5e-05 | rest:1.5e-04   Time: 1696.1s
+  -> Warmup epoch, not counting toward patience.
+Epoch 2/20 [TRAIN]: 100%|███| 3030/3030 [23:05<00:00,  2.19it/s, acc=50.7%, fake=29.7%, loss=0.1463, nan=0, real=46.2%]
+Epoch 2/20 [VAL]: 100%|█████████████████████████████████████| 1685/1685 [05:30<00:00,  5.10it/s, acc=8.3%, loss=0.2630]
+
+----------------------------------------------------------------------
+Epoch 2/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.14627  Acc: 50.7%  AUC: 0.5006  [Real: 46.2%  Fake: 29.7%]  NaN: 0
+Val    Loss: 0.26300  Acc: 8.3%  AUC: 0.5833
+  [youtube] acc: 100.0%
+  [actors] acc: 100.0%
+  [DeepFakeDetection] acc: 0.0%
+  [Deepfakes] acc: 0.0%
+  [Face2Face] acc: 0.0%
+  [FaceShifter] acc: 0.0%
+  [FaceSwap] acc: 0.0%
+  [NeuralTextures] acc: 0.0%
+LR: backbone:3.0e-05 | rest:3.0e-04   Time: 1716.0s
+  -> Warmup epoch, not counting toward patience.
+Epoch 3/20 [TRAIN]: 100%|███| 3030/3030 [24:05<00:00,  2.10it/s, acc=55.7%, fake=40.9%, loss=0.1218, nan=0, real=45.5%]
+Epoch 3/20 [VAL]: 100%|████████████████████████████████████| 1685/1685 [05:30<00:00,  5.10it/s, acc=91.1%, loss=0.2548]
+
+----------------------------------------------------------------------
+Epoch 3/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.12180  Acc: 55.7%  AUC: 0.5973  [Real: 45.5%  Fake: 40.9%]  NaN: 0
+Val    Loss: 0.25476  Acc: 91.1%  AUC: 0.6645
+  [youtube] acc: 2.0%
+  [actors] acc: 1.2%
+  [DeepFakeDetection] acc: 100.0%
+  [Deepfakes] acc: 100.0%
+  [Face2Face] acc: 98.3%
+  [FaceShifter] acc: 100.0%
+  [FaceSwap] acc: 95.8%
+  [NeuralTextures] acc: 99.4%
+LR: backbone:3.0e-05 | rest:3.0e-04   Time: 1776.4s
+  -> BEST model saved (val AUC: 0.6645)
+
+Epoch 4/20 [TRAIN]: 100%|███| 3030/3030 [24:51<00:00,  2.03it/s, acc=73.5%, fake=51.9%, loss=0.0990, nan=0, real=67.3%]
+Epoch 4/20 [VAL]: 100%|████████████████████████████████████| 1685/1685 [05:30<00:00,  5.10it/s, acc=12.6%, loss=0.2477]
+
+----------------------------------------------------------------------
+Epoch 4/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.09898  Acc: 73.5%  AUC: 0.7923  [Real: 67.3%  Fake: 51.9%]  NaN: 0
+Val    Loss: 0.24772  Acc: 12.6%  AUC: 0.7687
+  [youtube] acc: 100.0%
+  [actors] acc: 100.0%
+  [DeepFakeDetection] acc: 9.1%
+  [Deepfakes] acc: 6.1%
+  [Face2Face] acc: 0.3%
+  [FaceShifter] acc: 0.3%
+  [FaceSwap] acc: 0.0%
+  [NeuralTextures] acc: 0.6%
+LR: backbone:2.7e-05 | rest:2.7e-04   Time: 1822.6s
+  -> BEST model saved (val AUC: 0.7687)
+
+Epoch 5/20 [TRAIN]: 100%|███| 3030/3030 [24:10<00:00,  2.09it/s, acc=76.6%, fake=57.2%, loss=0.0862, nan=0, real=67.5%]
+Epoch 5/20 [VAL]: 100%|█████████████████████████████████████| 1685/1685 [05:30<00:00,  5.10it/s, acc=9.7%, loss=0.2416]
+
+----------------------------------------------------------------------
+Epoch 5/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.08619  Acc: 76.6%  AUC: 0.8462  [Real: 67.5%  Fake: 57.2%]  NaN: 0
+Val    Loss: 0.24157  Acc: 9.7%  AUC: 0.8408
+  [youtube] acc: 100.0%
+  [actors] acc: 100.0%
+  [DeepFakeDetection] acc: 3.3%
+  [Deepfakes] acc: 1.1%
+  [Face2Face] acc: 0.0%
+  [FaceShifter] acc: 0.0%
+  [FaceSwap] acc: 0.0%
+  [NeuralTextures] acc: 0.0%
+LR: backbone:2.0e-05 | rest:2.0e-04   Time: 1780.9s
+  -> BEST model saved (val AUC: 0.8408)
+
+Epoch 6/20 [TRAIN]: 100%|███| 3030/3030 [23:17<00:00,  2.17it/s, acc=82.4%, fake=61.8%, loss=0.0760, nan=0, real=67.8%]
+Epoch 6/20 [VAL]: 100%|████████████████████████████████████| 1685/1685 [05:33<00:00,  5.06it/s, acc=10.9%, loss=0.2158]
+
+----------------------------------------------------------------------
+Epoch 6/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.07602  Acc: 82.4%  AUC: 0.9020  [Real: 67.8%  Fake: 61.8%]  NaN: 0
+Val    Loss: 0.21576  Acc: 10.9%  AUC: 0.8837
+  [youtube] acc: 100.0%
+  [actors] acc: 100.0%
+  [DeepFakeDetection] acc: 6.0%
+  [Deepfakes] acc: 2.2%
+  [Face2Face] acc: 0.0%
+  [FaceShifter] acc: 0.0%
+  [FaceSwap] acc: 0.0%
+  [NeuralTextures] acc: 0.0%
+LR: backbone:1.1e-05 | rest:1.0e-04   Time: 1730.9s
+  -> BEST model saved (val AUC: 0.8837)
+
+Epoch 7/20 [TRAIN]: 100%|███| 3030/3030 [24:07<00:00,  2.09it/s, acc=87.4%, fake=67.3%, loss=0.0678, nan=0, real=68.4%]
+Epoch 7/20 [VAL]: 100%|████████████████████████████████████| 1685/1685 [05:34<00:00,  5.04it/s, acc=22.5%, loss=0.1686]
+
+----------------------------------------------------------------------
+Epoch 7/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.06782  Acc: 87.4%  AUC: 0.9343  [Real: 68.4%  Fake: 67.3%]  NaN: 0
+Val    Loss: 0.16859  Acc: 22.5%  AUC: 0.9175
+  [youtube] acc: 100.0%
+  [actors] acc: 100.0%
+  [DeepFakeDetection] acc: 26.2%
+  [Deepfakes] acc: 18.9%
+  [Face2Face] acc: 10.8%
+  [FaceShifter] acc: 3.1%
+  [FaceSwap] acc: 1.4%
+  [NeuralTextures] acc: 4.2%
+LR: backbone:3.8e-06 | rest:3.0e-05   Time: 1781.5s
+  -> BEST model saved (val AUC: 0.9175)
+
+Epoch 8/20 [TRAIN]: 100%|███| 3030/3030 [23:24<00:00,  2.16it/s, acc=87.5%, fake=67.1%, loss=0.0720, nan=0, real=66.8%]
+Epoch 8/20 [VAL]: 100%|████████████████████████████████████| 1685/1685 [05:33<00:00,  5.06it/s, acc=17.9%, loss=0.2371]
+
+----------------------------------------------------------------------
+Epoch 8/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.07198  Acc: 87.5%  AUC: 0.9309  [Real: 66.8%  Fake: 67.1%]  NaN: 0
+Val    Loss: 0.23715  Acc: 17.9%  AUC: 0.9331
+  [youtube] acc: 100.0%
+  [actors] acc: 100.0%
+  [DeepFakeDetection] acc: 20.6%
+  [Deepfakes] acc: 7.5%
+  [Face2Face] acc: 4.7%
+  [FaceShifter] acc: 0.8%
+  [FaceSwap] acc: 0.6%
+  [NeuralTextures] acc: 1.7%
+LR: backbone:3.0e-05 | rest:3.0e-04   Time: 1737.4s
+  -> BEST model saved (val AUC: 0.9331)
+
+Epoch 9/20 [TRAIN]:  38%|█▏ | 1142/3030 [10:50<17:54,  1.76it/s, acc=89.8%, fake=66.4%, loss=0.0616, nan=0, real=70.7%]
+Traceback (most recent call last):
+  File "C:\Users\mayur\AppData\Local\Programs\Python\Python310\lib\runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Users\mayur\AppData\Local\Programs\Python\Python310\lib\runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\train\run_train_v3.py", line 152, in <module>
+    main()
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\train\run_train_v3.py", line 124, in main
+    history = train(
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\train\train_pipeline_v3.py", line 678, in train
+    train_m = train_one_epoch(
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\train\train_pipeline_v3.py", line 390, in train_one_epoch
+    raise RuntimeError(f"Too many NaN batches ({nan_count}). Check freq branch dtype and CGAF.")
+RuntimeError: Too many NaN batches (21). Check freq branch dtype and CGAF.

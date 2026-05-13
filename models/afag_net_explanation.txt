@@ -1,0 +1,307 @@
+AFAG_NET.PY EXPLANATION
+=======================
+
+File:
+models/afag_net.py
+
+Purpose
+-------
+This file defines the main neural network model class used in your project:
+AFAGNet.
+
+It is the top-level model assembly file.
+It does not implement every internal block itself. Instead, it combines several
+submodules into one complete model pipeline.
+
+In simple words:
+this file wires the backbone, branch modules, fusion, temporal modeling, and
+output heads into one end-to-end model.
+
+
+Main Class
+----------
+AFAGNet(nn.Module)
+
+This class inherits from torch.nn.Module, so it behaves like a normal PyTorch
+model.
+
+
+What The Model Receives
+-----------------------
+Input to forward(x):
+
+x
+Shape:
+(B, N, 6, 224, 224)
+
+Meaning:
+- B = batch size
+- N = number of frames per sample
+- 6 = channels
+  - 3 RGB channels
+  - 3 YCbCr channels
+- 224 x 224 = frame size
+
+This matches the output format of your FFPPDataset dataloader.
+
+
+Main Components Created In __init__
+-----------------------------------
+The model creates these modules:
+
+1. self.backbone = AFAGBackbone()
+   Extracts lower-level and higher-level visual features from each frame.
+
+2. self.multi_branch = MultiBranchModule()
+   Splits features into multiple branches, such as spatial, frequency, and
+   noise-related representations.
+
+3. self.cgaf = CGAF()
+   Fuses the branch features and also returns correlation or interaction
+   matrices between branches.
+
+4. self.temporal = TemporalModel()
+   Looks across multiple frames over time and summarizes the video.
+
+5. self.heads = OutputHeads()
+   Produces final prediction outputs, such as classification and mask.
+
+
+High-Level Forward Flow
+-----------------------
+The forward pass follows this sequence:
+
+1. receive a batch of video frame sequences
+2. merge batch dimension and time dimension
+3. extract features with the backbone
+4. split features into branch-specific representations
+5. fuse branch features
+6. restore the temporal dimension
+7. run temporal modeling across frames
+8. produce classification and mask outputs
+9. return outputs in dictionary form
+
+
+Step-By-Step Explanation
+------------------------
+Step 1. Input
+The forward method starts with:
+
+B, N, C, H, W = x.shape
+
+This reads:
+- number of videos in the batch
+- number of frames per video
+- number of channels
+- image size
+
+
+Step 2. Merge batch and time
+The code does:
+
+x = x.view(B * N, C, H, W)
+
+Why:
+the backbone is a frame-level 2D network, not a sequence network.
+
+So instead of processing videos directly as 5D input, the model treats every
+frame as an individual image.
+
+This means:
+- each of the B*N frames is passed through the backbone
+- this is efficient and common in video models that separate spatial and
+  temporal processing
+
+
+Step 3. Backbone feature extraction
+The code does:
+
+F_low, F_high = self.backbone(x)
+
+Meaning:
+the backbone returns at least two feature levels.
+
+Likely interpretation:
+- F_low = lower or intermediate feature map
+- F_high = deeper semantic feature map
+
+In the current code:
+- F_low is used by the multi-branch module
+- F_high is returned by the backbone but not used later in this file
+
+So this file currently depends mostly on F_low.
+
+
+Step 4. Multi-branch processing
+The code does:
+
+Fs, Ff, Fn = self.multi_branch(F_low)
+
+This produces three feature groups:
+- Fs
+- Ff
+- Fn
+
+Based on your project naming and comments, these likely correspond to:
+- spatial features
+- frequency features
+- noise features
+
+Purpose:
+different branches can specialize in different forgery cues.
+
+
+Step 5. CGAF fusion
+The code does:
+
+Ffusion, Csf, Csn, Cfn = self.cgaf(Fs, Ff, Fn)
+
+What this means:
+- Ffusion = fused feature representation from all branches
+- Csf, Csn, Cfn = correlation or interaction matrices between branches
+
+These correlation outputs are later useful in training for consistency-style
+regularization.
+
+
+Step 6. Restore temporal dimension
+The code does:
+
+Ffusion = Ffusion.view(B, N, 256, 14, 14)
+
+Meaning:
+after frame-level processing, the model reconstructs the sequence structure.
+
+Before this step:
+- the model sees B*N independent frames
+
+After this step:
+- the model again sees B videos, each with N frames
+
+
+Step 7. Temporal modeling
+The code does:
+
+video_feat = self.temporal(Ffusion)
+
+Output shape comment:
+(B, 512)
+
+Meaning:
+the temporal model takes the fused per-frame features and summarizes the whole
+video into a single feature vector per sample.
+
+This stage is where temporal relations across frames are modeled.
+
+
+Step 8. Output heads
+The code does:
+
+head_out = self.heads(video_feat, Ffusion, Fs=Fs, Ff=Ff, Fn=Fn)
+
+Meaning:
+the output heads use:
+- the global video representation
+- and the temporally structured fused features
+
+to produce a dictionary containing:
+- pred_cls = binary real/fake classification
+- pred_mask = spatial localization mask
+- mask_sequence and explainability-related outputs
+
+
+Returned Output
+---------------
+The model returns a dictionary:
+
+{
+    "pred_cls": ...,
+    "pred_mask": ...,
+    "mask_sequence": ...,
+    "confidence": ...,
+    "stability": ...,
+    "attribution": ...,
+    "F_low": ...,
+    "F_high": ...,
+    "Fs": ...,
+    "Ff": ...,
+    "Fn": ...,
+    "Ffusion": ...,
+    "Ffusion_seq": ...,
+    "Csf": Csf,
+    "Csn": Csn,
+    "Cfn": Cfn
+}
+
+Meaning of each key:
+
+1. pred_cls
+   Classification output, likely real vs fake score.
+
+2. pred_mask
+   Localization or manipulation mask prediction.
+
+3. mask_sequence
+   Predicted mask for every frame in the sequence.
+
+4. confidence / stability / attribution
+   Extra explainability-oriented outputs from the heads module.
+
+5. F_low, F_high
+   Backbone features.
+
+6. Fs, Ff, Fn
+   Spatial, frequency, and noise branch outputs. These are especially useful
+   for pseudo-mask generation and debugging branch behavior.
+
+7. Ffusion
+   Flattened fused feature map before temporal reshape.
+
+8. Ffusion_seq
+   Fused feature map restored to sequence form `(B, N, C, H, W)`.
+
+9. Csf, Csn, Cfn
+   Correlation or consistency-related outputs from branch fusion.
+
+
+What This File Does Not Do
+--------------------------
+This file does not:
+- load data
+- compute losses
+- run optimization
+- save checkpoints
+- implement all inner layers directly
+
+Those tasks are handled elsewhere.
+
+
+How It Fits Into The Full Project
+---------------------------------
+The rough flow is:
+
+1. build_dataset.py builds sample metadata
+2. ffpp_dataset.py loads and processes frames and masks
+3. DataLoader builds batches
+4. AFAGNet in this file receives batch tensors
+5. train_pipeline_final.py computes losses and trains the model
+
+
+Practical Reading Tip
+---------------------
+When reading this file, think of it as the "wiring diagram" of the model.
+
+If you want the internal math of each stage, you need to read:
+- backbone implementation
+- multi-branch implementation
+- fusion implementation
+- temporal model implementation
+- output heads implementation
+
+
+Short Summary
+-------------
+This file defines the top-level AFAGNet model.
+It takes a batch of multi-frame, 6-channel face sequences, extracts frame
+features, builds branch-specific features, fuses them, models time across
+frames, and returns classification and mask predictions.

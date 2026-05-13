@@ -1,0 +1,83 @@
+FREQUENCY_BRANCH.PY EXPLANATION
+===============================
+
+File:
+models/branches/frequency_branch.py
+
+Purpose
+-------
+This file defines the frequency branch.
+
+Its goal is to detect forgery cues that appear more clearly in the frequency
+domain than in normal spatial features.
+
+
+Main Idea
+---------
+The branch:
+1. approximates a block-wise frequency transform
+2. refines the resulting map with convolutions
+3. applies channel attention
+
+
+Main Class
+----------
+FrequencyBranch(nn.Module)
+
+
+Constructor Parameters
+----------------------
+1. channels
+   Default = 256
+
+2. block_size
+   Default = 2
+
+Meaning:
+the frequency approximation is computed block by block, using blocks of size
+`block_size x block_size`.
+
+
+block_dct(x)
+------------
+Purpose:
+approximate block-wise DCT-like behavior using FFT.
+
+Flow:
+1. split feature map into non-overlapping blocks
+2. apply `torch.fft.fft2` to each block
+3. take magnitude with `torch.abs`
+4. rearrange dimensions back into image layout
+5. reshape to original spatial size
+
+Why approximate DCT:
+true DCT is commonly used in image compression and forensic analysis, but FFT
+is used here as an approximation for extracting frequency information.
+
+
+Forward Flow
+------------
+1. `freq = self.block_dct(x)`
+2. refine with conv + batch norm + ReLU
+3. compute `freq_gate` attention
+4. return `out * attn`
+
+
+What `freq_gate` Does
+---------------------
+`freq_gate` is a channel attention module.
+
+It:
+1. globally pools spatial dimensions
+2. compresses channels
+3. expands back to original channels
+4. uses sigmoid to produce weights
+
+This lets the branch emphasize the most useful frequency-related channels.
+
+
+Short Summary
+-------------
+This file builds the frequency branch, which transforms backbone features into
+frequency-style representations, refines them, and applies channel attention to
+highlight useful forgery signals.

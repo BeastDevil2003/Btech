@@ -1,0 +1,83 @@
+BACKBONE.PY EXPLANATION
+=======================
+
+Main Class
+----------
+AFAGBackbone(nn.Module)
+
+
+Input
+-----
+x
+Shape:
+(B*N, 6, 224, 224)
+
+Important detail:
+The backbone uses a 1×1 input adapter to convert 6 input channels into 3.
+This preserves compatibility with pretrained ImageNet backbone weights.
+
+Why this matters:
+- RGB channels are passed through initially via identity initialization
+- YCbCr channels are learned over time
+- the backbone receives properly normalized 3-channel input
+
+
+Model Used
+----------
+The default backbone is `mobilevitv2_100` from `timm`.
+It is created with:
+- pretrained=True
+- features_only=True
+
+ __init__ 
+------------------
+1. builds `input_adapter`, a 1×1 conv from 6→3 channels
+2. registers ImageNet mean/std buffers for normalization
+3. creates the MobileViT v2 feature extractor
+4. detects stage channel counts dynamically
+5. creates projection layers:
+   - `low_proj` for the low-level feature map
+   - `high_proj` for the high-level feature map
+
+The input adapter is initialized to copy the RGB channels into the first three
+channels and keep the remaining channels zero-initialized at start.
+
+
+Forward Flow
+------------
+1. apply the 6→3 input adapter
+2. convert adapted input from [-1, 1] to [0, 1]
+3. normalize with ImageNet mean/std
+4. pass normalized input through the backbone feature extractor
+5. select two feature levels
+6. project both maps to 256 channels
+7. return `F_low` and `F_high`
+
+
+Returned Outputs
+----------------
+The backbone returns:
+
+F_low, F_high
+
+1. F_low
+   - taken from `features[-3]` of MobileViT
+   - shape: `(B*N, 192, 28, 28)` before projection
+   - projected to `(B*N, 256, 28, 28)`
+
+2. F_high
+   - taken from `features[-1]`
+   - shape: `(B*N, 512, 7, 7)` before projection
+   - resized to `(7, 7)` if necessary and projected to
+     `(B*N, 256, 7, 7)`
+
+
+Why Two Feature Levels
+----------------------
+- `F_low` preserves fine spatial detail and texture information.
+- `F_high` provides global semantic context with a smaller resolution.
+
+In AFAGNet v3:
+- `F_low` is used by the spatial branch as the primary fine-grained input
+- `F_high` is used by the fusion module and by the output heads for global
+  context and skip connections

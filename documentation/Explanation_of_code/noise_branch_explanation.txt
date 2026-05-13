@@ -1,0 +1,46 @@
+NOISE_BRANCH.PY 
+===========================
+
+It detects residual noise and forensic artifacts in raw frames.
+
+
+Input
+-----
+The branch receives raw frames:
+- `x`: `(B*N, 6, 224, 224)`
+
+
+Main Idea
+---------
+The branch extracts noise residual features via:
+1. a raw adapter to 256 channels at 28×28
+2. frozen SRM-depthwise filtering
+3. a learnable depthwise complementary path
+4. refinement and attention gating
+5. residual addition back to the adapter output
+
+
+SRM Kernels
+-----------
+- `get_srm_kernels()` returns three 3×3 SRM-like kernels
+- these are averaged and repeated across the 256 output channels
+- the resulting depthwise convolution is frozen (`requires_grad=False`)
+
+A larger 30-kernel variant is available but commented out for low-VRAM use.
+
+
+Forward Flow
+------------
+1. raw input is passed through `self.adapter` → `(B*N, 256, 28, 28)`
+2. instance normalization stabilizes the features for the noise filters
+3. `self.srm` and `self.learnable_path` extract fixed and learned noise cues
+4. outputs are added and refined with conv + batch norm + ReLU
+5. attention gating weights the result
+6. the adapter output is added back as a residual skip
+
+
+Output
+------
+The branch returns:
+- `(B*N, 256, 28, 28)`
+

@@ -1,0 +1,93 @@
+SPATIAL_BRANCH.PY EXPLANATION
+=============================
+
+File:
+models/branches/spatial_branch.py
+
+Purpose
+-------
+This file defines the spatial feature branch.
+
+Its job is to focus on spatial forgery clues such as:
+- local texture inconsistencies
+- unnatural boundaries
+- facial region artifacts
+
+
+Main Parts
+----------
+1. CBAM attention block
+2. SpatialBranch module
+
+
+CBAM Class
+----------
+CBAM stands for Convolutional Block Attention Module.
+
+It applies:
+1. channel attention
+2. spatial attention
+
+Channel attention answers:
+"what feature channels are important?"
+
+Spatial attention answers:
+"where in the image is the important region?"
+
+
+How CBAM Works
+--------------
+1. Adaptive average pooling compresses spatial dimensions
+2. A small MLP produces channel weights
+3. Input features are scaled channel-wise
+4. Mean and max maps are computed across channels
+5. A 7x7 convolution predicts a spatial attention map
+6. Features are scaled spatially
+
+Output:
+attention-refined feature map
+
+
+SpatialBranch Class
+-------------------
+The branch creates:
+
+1. `high_pass`
+   A 3x3 convolution intended to act like a high-pass style residual filter
+
+2. `conv`
+   A conv + batch norm + ReLU refinement block
+
+3. `cbam`
+   Attention refinement
+
+
+Intended Forward Logic
+----------------------
+The comments suggest the intended flow is:
+
+1. keep identity copy of input
+2. apply high-pass filtering
+3. add residual identity
+4. refine with conv block
+5. apply CBAM attention
+6. return result
+
+
+Important Code Note
+-------------------
+In the current file, the `forward` method appears indented inside `__init__`
+instead of being defined as a normal class method.
+
+That means the file likely does not behave as intended in normal PyTorch usage
+unless this has been fixed elsewhere.
+
+So the explanation here describes the intended architecture, but the actual file
+should be reviewed carefully if you run into errors.
+
+
+Short Summary
+-------------
+This file is meant to build the spatial branch, which enhances local spatial
+artifacts using a high-pass style path plus CBAM attention to focus on the most
+important channels and regions.

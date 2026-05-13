@@ -1,0 +1,280 @@
+PSUEDO_MASK.PY EXPLANATION
+==========================
+
+File:
+train/psuedo_mask.py
+
+Naming note:
+the repository now also includes `train/pseudo_mask.py` as the correctly
+spelled import path. That new file is a compatibility alias for this one, so
+new code can prefer `train.pseudo_mask` without breaking older imports.
+
+Purpose
+-------
+This file generates pseudo masks for samples that do not have real ground-truth
+masks.
+
+Pseudo masks are approximate supervision signals created from model behavior
+and feature maps.
+
+In simple words:
+when a sample has no real mask, this file helps create a "soft guessed mask"
+that can still guide localization learning.
+
+
+Why Pseudo Masks Are Needed
+---------------------------
+In your dataset:
+- some manipulated samples have masks
+- some do not
+- real videos also do not have manipulation masks
+
+If the training code wants localization supervision on samples without real
+masks, it needs another source of target information.
+
+This file builds that alternative source.
+
+
+Main Contents Of This File
+--------------------------
+The file contains:
+
+1. a global EMA cache
+2. compute_gradcam_stable(...)
+3. frequency_map(...)
+4. noise_map(...)
+5. generate_pseudo_mask(...)
+
+
+Global Variable
+---------------
+gradcam_ema = None
+
+Purpose:
+store a moving average version of the Grad-CAM-like activation map.
+
+Why:
+raw activation-based maps can be noisy.
+Using EMA smoothing makes them more stable across iterations.
+
+
+compute_gradcam_stable(model, frames, decay=0.9)
+------------------------------------------------
+Purpose:
+generate a smoothed attention-like map using gradients with respect to the
+input frames.
+
+
+Inputs
+------
+1. model
+   The neural network.
+
+2. frames
+   Input frame tensor.
+   Expected shape is similar to:
+   (B, N, 6, 224, 224)
+
+3. decay
+   EMA decay factor.
+   Default = 0.9
+
+
+Flow
+----
+1. Clone and detach frames
+   frames = frames.clone().detach().requires_grad_(True)
+
+   Why:
+   so gradients can be computed with respect to the input frames.
+
+2. Forward pass
+   out = model(frames)
+
+3. Compute scalar score
+   score = out["pred_cls"].mean()
+
+   Why:
+   gradients need a scalar target.
+   Here the average classification score is used.
+
+4. Compute gradients with respect to frames
+   grads = torch.autograd.grad(score, frames, retain_graph=False)[0]
+
+5. Collapse channel dimension
+   cam = torch.mean(grads, dim=2, keepdim=True)
+
+   This creates a single map per frame.
+
+6. Apply ReLU
+   cam = F.relu(cam)
+
+   Keeps positive responses only.
+
+7. Resize to 224 x 224
+   The code reshapes and upsamples the map.
+
+8. Apply EMA smoothing
+   If no previous map exists:
+   - initialize gradcam_ema
+
+   Otherwise:
+   - gradcam_ema = decay * gradcam_ema + (1 - decay) * cam
+
+9. Return smoothed CAM
+
+
+Output
+------
+Returns a tensor shaped like:
+(B, N, 1, 224, 224)
+
+This acts like a soft importance map over frames.
+
+
+frequency_map(Ff)
+-----------------
+Purpose:
+convert branch feature Ff into a single-channel spatial map.
+
+Input:
+Ff feature tensor
+
+Logic:
+1. take absolute value
+2. average across channel dimension
+3. upsample to 224 x 224
+
+Output:
+a single-channel frequency-based map
+
+
+noise_map(Fn)
+-------------
+Purpose:
+convert branch feature Fn into a single-channel spatial map.
+
+Input:
+Fn feature tensor
+
+Logic:
+1. take absolute value
+2. average across channel dimension
+3. upsample to 224 x 224
+
+Output:
+a single-channel noise-based map
+
+
+generate_pseudo_mask(...)
+------------------------
+Signature:
+generate_pseudo_mask(model, frames, Fs, Ff, Fn, alpha=0.5, beta=0.3, gamma=0.2)
+
+Purpose:
+combine multiple weak localization signals into one pseudo mask.
+
+
+Inputs
+------
+1. model
+   The current model.
+
+2. frames
+   Input frame tensor.
+
+3. Fs
+   Spatial feature branch.
+   Note:
+   in the current code of this file, Fs is accepted but not directly used in
+   the final pseudo mask formula.
+
+4. Ff
+   Frequency branch feature map.
+
+5. Fn
+   Noise branch feature map.
+
+6. alpha
+   Weight for CAM contribution.
+
+7. beta
+   Weight for frequency contribution.
+
+8. gamma
+   Weight for noise contribution.
+
+
+Flow
+----
+1. Compute smoothed CAM
+   cam = compute_gradcam_stable(model, frames)
+
+2. Build frequency map
+   fmap = frequency_map(Ff)
+
+3. Build noise map
+   nmap = noise_map(Fn)
+
+4. Expand fmap and nmap across temporal dimension
+   Because cam is per frame sequence, the code repeats fmap and nmap over the
+   frame dimension so shapes match.
+
+5. Weighted combination
+   pseudo = alpha * cam + beta * fmap + gamma * nmap
+
+6. Normalize pseudo mask
+   pseudo = (pseudo - pseudo.min()) / (pseudo.max() + 1e-6)
+
+7. Detach and return
+   This prevents further gradient flow through the pseudo target itself.
+
+
+Output
+------
+A pseudo mask tensor shaped like a sequence of soft masks:
+(B, N, 1, 224, 224)
+
+
+How This Fits Into Training
+---------------------------
+In the training pipeline:
+
+1. the model produces outputs
+2. feature maps are extracted or approximated
+3. generate_pseudo_mask(...) is called
+4. the middle frame pseudo mask is often selected
+5. localization loss can use it when no real mask is available
+
+
+Why The EMA Cache Matters
+-------------------------
+Without EMA:
+- the pseudo map might fluctuate a lot from one batch to another
+
+With EMA:
+- the pseudo guidance becomes smoother and more stable
+
+This may improve training stability, though it also means the pseudo target
+depends on history from previous calls.
+
+
+Important Note
+--------------
+Because gradcam_ema is global:
+- it persists across function calls
+- it is not reset automatically between epochs or datasets
+
+That can be useful for smoothing, but it is also something to keep in mind
+when debugging.
+
+
+Short Summary
+-------------
+This file creates soft pseudo masks by combining:
+- gradient-based attention
+- frequency response
+- noise response
+
+It gives the training pipeline a fallback localization target when true masks
+are not available.

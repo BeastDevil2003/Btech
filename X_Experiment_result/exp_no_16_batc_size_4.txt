@@ -1,0 +1,153 @@
+Using cache directory: dataset/cache/ffpp_processed
+Training dataset cache status: 9431/9431 cached, 0 missing
+Identity-aware split: train=6061 samples, val=3370 samples
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Balanced sampler — real w=0.00092, fake w=0.00020
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\nn\modules\module.py:1150: UserWarning: expandable_segments not supported on this platform (Triggered internally at ..\c10/cuda/CUDAAllocatorConfig.h:30.)
+  return t.to(device, dtype if t.is_floating_point() or t.is_complex() else None, non_blocking)
+
+Class balance  — real: 1082, fake: 4979
+pos_weight BCE — 0.2173  (upweights real class)
+
+
+======================================================================
+Training Started: 2026-04-02 11:12:27
+======================================================================
+
+Train samples: 6061
+Val samples:   3370
+
+
+======================================================================
+SYSTEM & MODEL INFORMATION
+======================================================================
+Device:          GPU (CUDA)
+GPU Model:       NVIDIA GeForce RTX 3050 Laptop GPU
+GPU Memory:      4.00 GB
+PyTorch CUDA:    12.1
+PyTorch:         2.2.2+cu121
+AFAGNet params:  16,819,460 total / 16,817,156 trainable
+======================================================================
+
+======================================================================
+TRAINING CONFIGURATION
+======================================================================
+  batch_size                    : 2
+  epochs                        : 10
+  lr                            : 0.0003
+  weight_decay                  : 0.0001
+  patience                      : 5
+  use_amp                       : True
+  class_balance                 : WeightedRandomSampler + BCEWithLogitsLoss(pos_weight)
+  loc_weight                    : 1.0 decaying 0.15/epoch to floor 0.3
+  consistency_loss              : (1 - sigmoid(Csf)) rewards branch alignment
+  save_dir                      : checkpoints
+  log_dir                       : experiments/logs
+======================================================================
+
+Epoch 1/10 [TRAIN]: 100%|███████| 3031/3031 [18:01<00:00,  2.80it/s, acc=49.93%, batch=3031/3031, loss=0.5193, lw=1.00]
+Epoch 1/10 [VAL]: 100%|███████████████████| 1685/1685 [05:06<00:00,  5.50it/s, acc=8.34%, batch=1685/1685, loss=0.4817]
+
+----------------------------------------------------------------------
+Epoch 1/10 Summary
+----------------------------------------------------------------------
+Train Loss : 0.519339   Train Acc: 49.93%
+Val Loss   : 0.481691   Val Acc:   8.34%
+LR: 3.00e-04   Loc weight: 1.00   Time: 1387.8s
+  -> BEST model saved (val loss: 0.481691)
+
+Epoch 2/10 [TRAIN]: 100%|███████| 3031/3031 [18:15<00:00,  2.77it/s, acc=49.41%, batch=3031/3031, loss=0.4615, lw=0.85]
+Epoch 2/10 [VAL]: 100%|███████████████████| 1685/1685 [05:08<00:00,  5.45it/s, acc=8.34%, batch=1685/1685, loss=0.4461]
+
+----------------------------------------------------------------------
+Epoch 2/10 Summary
+----------------------------------------------------------------------
+Train Loss : 0.461519   Train Acc: 49.41%
+Val Loss   : 0.446141   Val Acc:   8.34%
+LR: 3.00e-04   Loc weight: 0.85   Time: 1404.9s
+  -> BEST model saved (val loss: 0.446141)
+
+Epoch 3/10 [TRAIN]: 100%|███████| 3031/3031 [18:19<00:00,  2.76it/s, acc=50.78%, batch=3031/3031, loss=0.4199, lw=0.70]
+Epoch 3/10 [VAL]: 100%|███████████████████| 1685/1685 [05:50<00:00,  4.81it/s, acc=8.34%, batch=1685/1685, loss=0.3917]
+
+----------------------------------------------------------------------
+Epoch 3/10 Summary
+----------------------------------------------------------------------
+Train Loss : 0.419892   Train Acc: 50.78%
+Val Loss   : 0.391700   Val Acc:   8.34%
+LR: 3.00e-04   Loc weight: 0.70   Time: 1449.5s
+  -> BEST model saved (val loss: 0.391700)
+
+Epoch 4/10 [TRAIN]: 100%|██████████| 3031/3031 [19:14<00:00,  2.63it/s, acc=49.40%, batch=3031/3031, loss=nan, lw=0.55]
+Epoch 4/10 [VAL]: 100%|██████████████████████| 1685/1685 [05:09<00:00,  5.44it/s, acc=8.34%, batch=1685/1685, loss=nan]
+
+----------------------------------------------------------------------
+Epoch 4/10 Summary
+----------------------------------------------------------------------
+Train Loss : nan   Train Acc: 49.40%
+Val Loss   : nan   Val Acc:   8.34%
+LR: 3.00e-04   Loc weight: 0.55   Time: 1464.6s
+  -> No improvement. Patience: 1/5
+
+Epoch 5/10 [TRAIN]: 100%|██████████| 3031/3031 [17:02<00:00,  2.97it/s, acc=50.14%, batch=3031/3031, loss=nan, lw=0.40]
+Epoch 5/10 [VAL]: 100%|██████████████████████| 1685/1685 [05:07<00:00,  5.47it/s, acc=8.34%, batch=1685/1685, loss=nan]
+
+----------------------------------------------------------------------
+Epoch 5/10 Summary
+----------------------------------------------------------------------
+Train Loss : nan   Train Acc: 50.14%
+Val Loss   : nan   Val Acc:   8.34%
+LR: 3.00e-04   Loc weight: 0.40   Time: 1330.0s
+  -> No improvement. Patience: 2/5
+
+Epoch 6/10 [TRAIN]: 100%|██████████| 3031/3031 [17:01<00:00,  2.97it/s, acc=49.86%, batch=3031/3031, loss=nan, lw=0.30]
+Epoch 6/10 [VAL]: 100%|██████████████████████| 1685/1685 [05:32<00:00,  5.07it/s, acc=8.34%, batch=1685/1685, loss=nan]
+
+----------------------------------------------------------------------
+Epoch 6/10 Summary
+----------------------------------------------------------------------
+Train Loss : nan   Train Acc: 49.86%
+Val Loss   : nan   Val Acc:   8.34%
+LR: 3.00e-04   Loc weight: 0.30   Time: 1353.9s
+  -> No improvement. Patience: 3/5
+
+Epoch 7/10 [TRAIN]: 100%|██████████| 3031/3031 [17:15<00:00,  2.93it/s, acc=49.79%, batch=3031/3031, loss=nan, lw=0.30]
+Epoch 7/10 [VAL]: 100%|██████████████████████| 1685/1685 [05:08<00:00,  5.47it/s, acc=8.34%, batch=1685/1685, loss=nan]
+
+----------------------------------------------------------------------
+Epoch 7/10 Summary
+----------------------------------------------------------------------
+Train Loss : nan   Train Acc: 49.79%
+Val Loss   : nan   Val Acc:   8.34%
+LR: 1.50e-04   Loc weight: 0.30   Time: 1343.3s
+  -> No improvement. Patience: 4/5
+
+Epoch 8/10 [TRAIN]: 100%|██████████| 3031/3031 [17:00<00:00,  2.97it/s, acc=49.00%, batch=3031/3031, loss=nan, lw=0.30]
+Epoch 8/10 [VAL]: 100%|██████████████████████| 1685/1685 [05:10<00:00,  5.42it/s, acc=8.34%, batch=1685/1685, loss=nan]
+
+----------------------------------------------------------------------
+Epoch 8/10 Summary
+----------------------------------------------------------------------
+Train Loss : nan   Train Acc: 49.00%
+Val Loss   : nan   Val Acc:   8.34%
+LR: 1.50e-04   Loc weight: 0.30   Time: 1331.6s
+  -> No improvement. Patience: 5/5
+
+======================================================================
+EARLY STOPPING after 5 epochs without improvement
+======================================================================
+
+
+======================================================================
+TRAINING COMPLETE
+======================================================================
+Total Time  : 3.07h (184.4min)
+Best Epoch  : 3   Best Loss: 0.391700
+Train Loss  : nan   Train Acc: 49.00%
+Val Loss    : nan   Val Acc: 8.34%
+
+Saved: checkpoints\best_model.pth | checkpoints\latest_model.pth
+Logs:  experiments/logs\epoch_results.txt
+
+Finished: 2026-04-02 14:16:53
+======================================================================

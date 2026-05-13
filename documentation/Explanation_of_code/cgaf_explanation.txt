@@ -1,0 +1,84 @@
+CGAF.PY EXPLANATION
+===================
+
+
+Main Class
+----------
+CGAFv2(nn.Module)
+
+
+Inputs
+------
+- `Fs`: spatial branch output `(B*N, 256, 28, 28)`
+- `Ff`: frequency branch output `(B*N, 256, 28, 28)`
+- `Fn`: noise branch output `(B*N, 256, 28, 28)`
+- `F_high`: backbone high-level feature `(B*N, 256, 7, 7)` (optional)
+
+
+What It Creates
+---------------
+1. 1×1 projection layers for each branch
+2. a bounded temperature parameter via `log_temp`
+3. a global context gate from `F_high` when enabled
+4. a learnable residual weight `alpha`
+5. a final refinement block with GELU activations
+
+
+Similarity and Gating
+---------------------
+The module computes similarity maps between branch projections:
+- `Csf`: spatial vs frequency
+- `Csn`: spatial vs noise
+- `Cfn`: frequency vs noise
+
+These maps are used to compute adaptive gates:
+- `Wf` from `Csf`
+- `Wn` from `Csn`
+
+The temperature is bounded by:
+- `temp = clamp(exp(log_temp), 0.1, 10.0)`
+This prevents the gate from becoming too sharp or too flat.
+
+
+Cross-consistency and F_high context
+------------------------------------
+- `Cfn` is used as a cross-consistency gate to modulate `Wf` and `Wn`
+- when `use_f_high=True`, `F_high` is pooled and passed through a small
+  gate network
+- that global gate scales the frequency/noise weights further
+
+This means fusion is influenced by both branch agreement and high-level
+semantic context.
+
+
+Fusion Formula
+--------------
+The fused feature is computed as:
+
+fused_aux = Wf * Ff + Wn * Fn
+Ffusion   = Fs + alpha * fused_aux
+
+where `alpha` is a learned positive scalar produced by softplus.
+
+
+Refinement
+----------
+`Ffusion` is refined with a two-layer depthwise conv block using GELU
+activations and batch normalization.
+
+
+Returned Outputs
+----------------
+- `Ffusion`: final fused feature map
+- `Csf`: spatial-frequency similarity map
+- `Csn`: spatial-noise similarity map
+- `Cfn`: frequency-noise similarity map
+
+
+consistency_loss(Fs, Ff, Fn)
+----------------------------
+A helper loss that computes:
+
+L1(Fs, Ff) + L1(Fs, Fn)
+
+It encourages the branches to remain consistent with each other.

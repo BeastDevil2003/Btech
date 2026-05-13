@@ -1,0 +1,134 @@
+OUTPUT_HEADS.PY EXPLANATION
+===========================
+
+File:
+models/heads/output_heads.py
+
+Purpose
+-------
+This file defines the final prediction heads of the model.
+
+It converts internal feature representations into:
+- a binary classification score
+- a localization mask
+- some explainability-related outputs
+
+
+Main Parts
+----------
+1. ClassificationHead
+2. LocalizationHead
+3. helper functions for explainability
+4. OutputHeads wrapper module
+
+
+ClassificationHead
+------------------
+Purpose:
+predict whether the input video is real or fake.
+
+Input:
+video-level feature vector, usually shape (B, 512)
+
+Flow:
+1. linear layer
+2. ReLU
+3. dropout
+4. linear layer
+5. sigmoid
+
+Output:
+one probability-like value per sample
+
+
+LocalizationHead
+----------------
+Purpose:
+predict a manipulation localization mask from fused feature maps.
+
+Input:
+feature map, usually with 256 channels
+
+Flow:
+1. 3x3 conv
+2. several transposed convolutions for upsampling
+3. final 1x1 conv
+4. sigmoid
+
+Output:
+a single-channel mask
+
+This acts like a decoder that expands low-resolution feature maps back toward
+image resolution.
+
+
+confidence_map(mask)
+--------------------
+Computes:
+|mask - 0.5| * 2
+
+Meaning:
+values near 0 or 1 are treated as more confident than values near 0.5.
+
+
+temporal_stability(mask_seq)
+----------------------------
+Computes:
+1 - |Mask_t - Mask_t+1|
+
+Purpose:
+estimate how stable mask predictions are across neighboring frames.
+
+
+domain_attribution(Fs, Ff, Fn, Wf=None, Wn=None)
+------------------------------------------------
+Purpose:
+return branch contribution maps for explainability.
+
+If gate weights are provided:
+- frequency and noise maps are weighted
+
+Otherwise:
+- raw branch outputs are returned
+
+
+OutputHeads Class
+-----------------
+This is the wrapper that combines classification and localization outputs.
+
+Forward Inputs:
+- video_feat
+- Ffusion
+- optional Fs, Ff, Fn
+- optional Wf, Wn
+
+
+Forward Flow
+------------
+1. classification head predicts `pred_cls`
+2. fused temporal features are reshaped from (B, N, C, H, W) to (B*N, C, H, W)
+3. localization head predicts one mask per frame
+4. masks are reshaped back into a temporal sequence
+5. middle frame mask is selected as `pred_mask`
+6. confidence map is computed
+7. temporal stability map is computed
+8. optional attribution maps are prepared
+9. all outputs are returned in a dictionary
+
+
+Returned Dictionary
+-------------------
+The wrapper returns:
+- pred_cls
+- pred_mask
+- mask_sequence
+- confidence
+- stability
+- attribution
+
+
+Short Summary
+-------------
+This file turns high-level fused features into the final outputs of the model:
+a real/fake score, frame-level mask sequence, middle-frame mask, and a few
+extra explainability signals.

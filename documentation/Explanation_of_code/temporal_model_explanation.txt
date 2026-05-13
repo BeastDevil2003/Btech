@@ -1,0 +1,124 @@
+TEMPORAL_MODEL.PY EXPLANATION
+=============================
+
+It summarizes fused per-frame features into one video-level feature vector.
+
+
+Main Class
+----------
+TemporalModel(nn.Module)
+
+
+Constructor Parameters
+----------------------
+- `in_channels = 256`
+- `embed_dim = 512`
+- `num_heads = 8`
+- `num_layers = 4`
+- `max_len = 512`
+
+
+Main Components
+---------------
+1. linear projection from 256 channels to 512 embedding
+2. layer normalization
+3. learnable positional embeddings
+4. learnable weights for temporal difference scales
+5. transformer encoder
+
+
+Input
+-----
+- `Ffusion`: `(B, N, C, H, W)`
+
+
+
+Idea
+---------------
+The temporal model summarizes frame-wise fused features by:
+1. computing a spatial importance mask
+2. pooling each frame into a compact vector
+3. computing multi-scale temporal differences
+4. concatenating original and difference features
+5. running a transformer encoder
+6. averaging the transformer's output to one vector
+
+
+get_spatial_mask(x)
+-------------------
+Purpose:
+Compute a soft attention mask from feature energy.
+
+Flow:
+1. compute the absolute value of features
+2. average across channels
+3. normalize each frame with min-max scaling
+
+Output:
+- mask of shape `(B, N, 1, H, W)`
+
+This mask highlights important regions and suppresses background.
+
+
+global_pool_masked(x, mask)
+---------------------------
+Purpose:
+Pool each frame into a feature vector using the spatial mask.
+
+Flow:
+- weighted sum of features across H and W
+- divide by mask sum
+
+Output:
+- `Ft` of shape `(B, N, C)`
+
+
+pad_time(x, target_len)
+-----------------------
+Purpose:
+Pad shorter temporal difference sequences by repeating the last timestep.
+
+This ensures all sequences have length N for concatenation.
+
+
+compute_differences(Ft)
+-----------------------
+Purpose:
+Compute temporal change signals at multiple scales.
+
+Created sequences:
+- `D1`: neighbor frame differences
+- `D2`: gap-2 differences
+- `D4`: gap-4 differences
+
+Each difference sequence is padded back to length N.
+
+
+Forward Flow
+------------
+1. compute spatial mask from `Ffusion`
+2. pool masked features into `Ft`
+3. compute `D1`, `D2`, `D4`
+4. concatenate:
+   - `Ft`
+   - `0.5 * w1 * D1`
+   - `0.3 * w2 * D2`
+   - `0.2 * w4 * D4`
+
+This creates a sequence of length `4N`.
+
+5. project the sequence to the transformer embedding size
+6. add positional embeddings
+7. compute motion-aware bias from `D1`
+8. add the bias to the sequence
+9. apply layer normalization
+10. pass the sequence through the transformer encoder
+11. average the transformer outputs over time
+
+
+Output
+------
+Returns:
+- `video_feat`: `(B, 512)`
+
+This is the final video-level feature vector used by the classification head.

@@ -1,0 +1,244 @@
+BUILD_DATASET.PY EXPLANATION
+============================
+
+File:
+data/loader/build_dataset.py
+
+Purpose
+-------
+This file builds the metadata for the FaceForensics++ style dataset.
+It does not load frames into memory and it does not train the model.
+Its only job is to scan the dataset folders and return lists that describe:
+
+1. where each video is stored
+2. whether that video is real or fake
+3. where the matching mask video is stored, if a mask exists
+4. which domain or manipulation type the sample belongs to
+
+In simple words:
+this file prepares the "index" of the dataset.
+
+
+Main Function
+-------------
+build_ffpp_dataset(root_dir, compression="c23")
+
+
+Input Arguments
+---------------
+1. root_dir
+   Type: string
+   Meaning: path to the main dataset folder
+
+   Example:
+   "FaceForensics_Data"
+
+2. compression
+   Type: string
+   Default: "c23"
+   Meaning: which compressed version of the manipulated videos to use
+
+   Common FaceForensics++ variants:
+   - raw
+   - c23
+   - c40
+
+
+Expected Dataset Structure
+--------------------------
+The function assumes the folder looks like this:
+
+root_dir/
+  original_sequences/
+    youtube/
+    actors/
+  manipulated_sequences/
+    Deepfakes/
+    Face2Face/
+    FaceSwap/
+    FaceShifter/
+    NeuralTextures/
+    DeepFakeDetection/
+
+Inside each fake manipulation type, it expects something like:
+
+manipulated_sequences/<fake_type>/<compression>/videos/
+manipulated_sequences/<fake_type>/masks/videos/
+
+
+Returned Output
+---------------
+The function returns 4 parallel lists:
+
+1. video_paths
+   List of full paths to video files
+
+2. labels
+   List of integer labels
+   - 0 = real
+   - 1 = fake
+
+3. mask_paths
+   List of paths to mask videos
+   - if the sample has a mask: full path to mask video
+   - if no mask exists: None
+
+4. domains
+   List of strings describing the sample source
+   Examples:
+   - "youtube"
+   - "actors"
+   - "Deepfakes"
+   - "Face2Face"
+
+Important:
+all 4 lists are aligned by index.
+
+That means:
+video_paths[i], labels[i], mask_paths[i], and domains[i]
+all describe the same sample.
+
+
+Step-By-Step Flow
+-----------------
+1. Create empty lists
+   The function starts by creating:
+   - video_paths = []
+   - labels = []
+   - mask_paths = []
+   - domains = []
+
+   These lists will be filled sample by sample.
+
+2. Build main dataset roots
+   It creates:
+   - manipulated_root = root_dir/manipulated_sequences
+   - original_root = root_dir/original_sequences
+
+3. Process real videos
+   The real videos come from:
+   - original_sequences/youtube
+   - original_sequences/actors
+
+   The function walks through all subfolders and finds every `.mp4` file.
+
+   For each real video:
+   - append its path to video_paths
+   - append 0 to labels
+   - append None to mask_paths
+   - append "youtube" or "actors" to domains
+
+   Why mask_paths is None:
+   because real videos do not have manipulation masks.
+
+4. Process fake videos
+   The function lists all fake manipulation folders inside:
+   manipulated_sequences/
+
+   Example fake types:
+   - Deepfakes
+   - Face2Face
+   - FaceSwap
+   - FaceShifter
+   - NeuralTextures
+   - DeepFakeDetection
+
+5. For each fake type, find its videos
+   It builds:
+   - video_dir = fake_path/compression
+   - mask_dir = fake_path/masks
+
+   Then it recursively walks through the video directory and finds every `.mp4`.
+
+6. For each fake video
+   For each fake video file:
+   - append video path to video_paths
+   - append 1 to labels
+   - append fake_type to domains
+
+7. Try to attach the matching mask
+   For most fake types, the code expects the mask file to be:
+   mask_dir/videos/<same_filename>.mp4
+
+   If that mask file exists:
+   - append mask path
+
+   If that mask file does not exist:
+   - append None
+
+8. Special case: FaceShifter
+   The code assumes FaceShifter has no masks.
+   So for FaceShifter it directly appends:
+   - None
+
+9. Return all lists
+   Finally the function returns:
+   video_paths, labels, mask_paths, domains
+
+
+How Other Code Uses This
+------------------------
+This function is normally called before creating the PyTorch Dataset object.
+
+Typical flow:
+
+1. build_ffpp_dataset(...)
+2. pass outputs into FFPPDataset(...)
+3. FFPPDataset loads actual frames from the paths
+4. DataLoader creates batches from the Dataset
+5. training loop uses those batches
+
+
+Example
+-------
+video_paths, labels, mask_paths, domains = build_ffpp_dataset("FaceForensics_Data")
+
+After this:
+- video_paths[0] might be a real video path
+- labels[0] might be 0
+- mask_paths[0] might be None
+- domains[0] might be "youtube"
+
+Another sample:
+- video_paths[1500] might be a Deepfakes manipulated video
+- labels[1500] would be 1
+- mask_paths[1500] might point to a mask video
+- domains[1500] might be "Deepfakes"
+
+
+Why This File Is Useful
+-----------------------
+This design separates dataset indexing from dataset loading.
+
+That is helpful because:
+- the folder scan is done once
+- the loading logic stays cleaner
+- training code receives a ready-to-use sample index
+
+
+Important Notes
+---------------
+1. This file does not split train/val/test sets.
+   It only collects all available samples.
+
+2. This file does not verify class balance.
+   It just records whatever is found in the folders.
+
+3. This file does not open videos.
+   It only stores paths and metadata.
+
+4. If the folder structure changes, this function may fail or miss files.
+
+5. The compression argument affects fake videos in the current implementation.
+   Real videos are simply collected from their folders as found.
+
+
+Short Summary
+-------------
+This file scans FaceForensics++ folders and builds four aligned lists:
+- video file paths
+- binary labels
+- mask paths
+- domain names
+
+It is the dataset indexing stage, not the frame loading stage.

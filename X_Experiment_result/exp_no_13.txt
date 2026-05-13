@@ -1,0 +1,643 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\WINDOWS\system32> & c:\Users\mayur\Desktop\dummmmmmmmy\btech\Scripts\Activate.ps1
+(btech) PS C:\WINDOWS\system32> & cd \Users\mayur\Desktop\dummmmmmmmy
+(btech) PS C:\Users\mayur\Desktop\dummmmmmmmy> python -m train.run_train_v3
+Cache directory : dataset/cache/ffpp_processed_v2
+Cache status    : 9431/9431 cached, 0 missing
+
+Identity-aware split: train=6061, val=3370
+AFAGNetV3 params: 19,060,315 total / 19,058,011 trainable
+
+No checkpoint found — training from scratch.
+
+Class balance — real: 1082, fake: 4979
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\nn\modules\module.py:1150: UserWarning: expandable_segments not supported on this platform (Triggered internally at ..\c10/cuda/CUDAAllocatorConfig.h:30.)
+  return t.to(device, dtype if t.is_floating_point() or t.is_complex() else None, non_blocking)
+
+LR groups: backbone=3.0e-05, rest=3.0e-04
+
+======================================================================
+SYSTEM & MODEL INFORMATION
+======================================================================
+Device:     GPU (CUDA)
+GPU Model:  NVIDIA GeForce RTX 3050 Laptop GPU
+GPU Memory: 4.00 GB
+CUDA:       12.1
+PyTorch:    2.2.2+cu121
+Params:     19,060,315 total / 19,058,011 trainable
+======================================================================
+
+
+======================================================================
+Training Started: 2026-04-04 11:02:29
+======================================================================
+Train: 6061 samples | Val: 3370
+AMP: True | MixUp: True | EMA: True | AltFreezing: False
+======================================================================
+
+Epoch 1/50 [TRAIN]: 100%|███| 3030/3030 [22:49<00:00,  2.21it/s, acc=50.5%, fake=35.1%, loss=0.2229, nan=0, real=41.4%]
+Epoch 1/50 [VAL]: 100%|████████████████████████████████████| 1685/1685 [05:27<00:00,  5.14it/s, acc=91.7%, loss=0.2498]
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+
+----------------------------------------------------------------------
+Epoch 1/50 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.22288  Acc: 50.5%  AUC: 0.5096  [Real: 41.4%  Fake: 35.1%]  NaN: 0
+Val    Loss: 0.24980  Acc: 91.7%  AUC: 0.4862
+  Domain                     N      Acc      AUC
+  ----------------------  -----  -------  -------
+  DeepFakeDetection       1289   100.0%     n/a
+  Deepfakes                360   100.0%     n/a
+  Face2Face                360   100.0%     n/a
+  FaceShifter              360   100.0%     n/a
+  FaceSwap                 360   100.0%     n/a
+  NeuralTextures           360   100.0%     n/a
+  actors                    81     0.0%     n/a
+  youtube                  200     0.0%     n/a
+LR: backbone:1.5e-05 | rest:1.5e-04   Time: 1697.0s
+  -> Warmup epoch, not counting toward patience.
+Epoch 2/50 [TRAIN]: 100%|███| 3030/3030 [28:22<00:00,  1.78it/s, acc=49.9%, fake=34.8%, loss=0.1436, nan=0, real=40.3%]
+Epoch 2/50 [VAL]: 100%|████████████████████████████████████| 1685/1685 [05:32<00:00,  5.07it/s, acc=16.8%, loss=0.2557]
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+
+----------------------------------------------------------------------
+Epoch 2/50 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.14359  Acc: 49.9%  AUC: 0.4980  [Real: 40.3%  Fake: 34.8%]  NaN: 0
+Val    Loss: 0.25568  Acc: 16.8%  AUC: 0.5693
+  Domain                     N      Acc      AUC
+  ----------------------  -----  -------  -------
+  DeepFakeDetection       1289    13.0%     n/a
+  Deepfakes                360     8.6%     n/a
+  Face2Face                360     5.6%     n/a
+  FaceShifter              360     7.8%     n/a
+  FaceSwap                 360     3.9%     n/a
+  NeuralTextures           360     9.7%     n/a
+  actors                    81    98.8%     n/a
+  youtube                  200    96.0%     n/a
+LR: backbone:3.0e-05 | rest:3.0e-04   Time: 2034.5s
+  -> Warmup epoch, not counting toward patience.
+Epoch 3/50 [TRAIN]: 100%|███| 3030/3030 [23:02<00:00,  2.19it/s, acc=49.7%, fake=39.8%, loss=0.1255, nan=0, real=35.0%]
+Epoch 3/50 [VAL]: 100%|█████████████████████████████████████| 1685/1685 [05:30<00:00,  5.10it/s, acc=8.3%, loss=0.2554]
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+
+----------------------------------------------------------------------
+Epoch 3/50 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.12555  Acc: 49.7%  AUC: 0.4989  [Real: 35.0%  Fake: 39.8%]  NaN: 0
+Val    Loss: 0.25537  Acc: 8.3%  AUC: 0.5631
+  Domain                     N      Acc      AUC
+  ----------------------  -----  -------  -------
+  DeepFakeDetection       1289     0.0%     n/a
+  Deepfakes                360     0.0%     n/a
+  Face2Face                360     0.0%     n/a
+  FaceShifter              360     0.0%     n/a
+  FaceSwap                 360     0.0%     n/a
+  NeuralTextures           360     0.0%     n/a
+  actors                    81   100.0%     n/a
+  youtube                  200   100.0%     n/a
+LR: backbone:3.0e-05 | rest:3.0e-04   Time: 1713.7s
+  -> BEST model saved (val AUC: 0.5631)
+
+Epoch 4/50 [TRAIN]: 100%|███| 3030/3030 [23:30<00:00,  2.15it/s, acc=61.2%, fake=42.1%, loss=0.1090, nan=0, real=54.8%]
+Epoch 4/50 [VAL]: 100%|█████████████████████████████████████| 1685/1685 [05:29<00:00,  5.12it/s, acc=8.3%, loss=0.2357]
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+
+----------------------------------------------------------------------
+Epoch 4/50 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.10895  Acc: 61.2%  AUC: 0.6708  [Real: 54.8%  Fake: 42.1%]  NaN: 0
+Val    Loss: 0.23573  Acc: 8.3%  AUC: 0.6465
+  Domain                     N      Acc      AUC
+  ----------------------  -----  -------  -------
+  DeepFakeDetection       1289     0.0%     n/a
+  Deepfakes                360     0.0%     n/a
+  Face2Face                360     0.0%     n/a
+  FaceShifter              360     0.0%     n/a
+  FaceSwap                 360     0.0%     n/a
+  NeuralTextures           360     0.0%     n/a
+  actors                    81   100.0%     n/a
+  youtube                  200   100.0%     n/a
+LR: backbone:3.0e-05 | rest:3.0e-04   Time: 1739.7s
+  -> BEST model saved (val AUC: 0.6465)
+
+Epoch 5/50 [TRAIN]: 100%|███| 3030/3030 [23:03<00:00,  2.19it/s, acc=74.6%, fake=51.4%, loss=0.0909, nan=0, real=68.8%]
+Epoch 5/50 [VAL]: 100%|█████████████████████████████████████| 1685/1685 [05:29<00:00,  5.12it/s, acc=9.0%, loss=0.2392]
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+
+----------------------------------------------------------------------
+Epoch 5/50 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.09089  Acc: 74.6%  AUC: 0.7874  [Real: 68.8%  Fake: 51.4%]  NaN: 0
+Val    Loss: 0.23924  Acc: 9.0%  AUC: 0.7686
+  Domain                     N      Acc      AUC
+  ----------------------  -----  -------  -------
+  DeepFakeDetection       1289     1.7%     n/a
+  Deepfakes                360     0.3%     n/a
+  Face2Face                360     0.0%     n/a
+  FaceShifter              360     0.0%     n/a
+  FaceSwap                 360     0.0%     n/a
+  NeuralTextures           360     0.0%     n/a
+  actors                    81   100.0%     n/a
+  youtube                  200   100.0%     n/a
+LR: backbone:3.0e-05 | rest:3.0e-04   Time: 1713.1s
+  -> BEST model saved (val AUC: 0.7686)
+
+Epoch 6/50 [TRAIN]: 100%|███| 3030/3030 [23:07<00:00,  2.18it/s, acc=79.7%, fake=57.7%, loss=0.0793, nan=0, real=69.8%]
+Epoch 6/50 [VAL]: 100%|████████████████████████████████████| 1685/1685 [05:30<00:00,  5.10it/s, acc=20.8%, loss=0.2005]
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+
+----------------------------------------------------------------------
+Epoch 6/50 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.07926  Acc: 79.7%  AUC: 0.8577  [Real: 69.8%  Fake: 57.7%]  NaN: 0
+Val    Loss: 0.20050  Acc: 20.8%  AUC: 0.8422
+  Domain                     N      Acc      AUC
+  ----------------------  -----  -------  -------
+  DeepFakeDetection       1289    23.3%     n/a
+  Deepfakes                360    25.0%     n/a
+  Face2Face                360     4.7%     n/a
+  FaceShifter              360     0.3%     n/a
+  FaceSwap                 360     0.0%     n/a
+  NeuralTextures           360     3.6%     n/a
+  actors                    81   100.0%     n/a
+  youtube                  200    99.0%     n/a
+LR: backbone:3.0e-05 | rest:2.9e-04   Time: 1717.4s
+  -> BEST model saved (val AUC: 0.8422)
+
+Epoch 7/50 [TRAIN]: 100%|███| 3030/3030 [23:29<00:00,  2.15it/s, acc=87.2%, fake=65.6%, loss=0.0724, nan=0, real=69.3%]
+Epoch 7/50 [VAL]: 100%|████████████████████████████████████| 1685/1685 [05:30<00:00,  5.09it/s, acc=19.6%, loss=0.2018]
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+
+----------------------------------------------------------------------
+Epoch 7/50 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.07238  Acc: 87.2%  AUC: 0.9298  [Real: 69.3%  Fake: 65.6%]  NaN: 0
+Val    Loss: 0.20183  Acc: 19.6%  AUC: 0.8773
+  Domain                     N      Acc      AUC
+  ----------------------  -----  -------  -------
+  DeepFakeDetection       1289    18.7%     n/a
+  Deepfakes                360    28.1%     n/a
+  Face2Face                360     6.1%     n/a
+  FaceShifter              360     0.3%     n/a
+  FaceSwap                 360     0.0%     n/a
+  NeuralTextures           360     3.9%     n/a
+  actors                    81   100.0%     n/a
+  youtube                  200   100.0%     n/a
+LR: backbone:2.9e-05 | rest:2.9e-04   Time: 1740.3s
+  -> BEST model saved (val AUC: 0.8773)
+
+Epoch 8/50 [TRAIN]: 100%|███| 3030/3030 [27:36<00:00,  1.83it/s, acc=89.9%, fake=67.3%, loss=0.0665, nan=0, real=68.7%]
+Epoch 8/50 [VAL]: 100%|████████████████████████████████████| 1685/1685 [05:29<00:00,  5.11it/s, acc=25.2%, loss=0.2351]
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+
+----------------------------------------------------------------------
+Epoch 8/50 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.06654  Acc: 89.9%  AUC: 0.9482  [Real: 68.7%  Fake: 67.3%]  NaN: 0
+Val    Loss: 0.23506  Acc: 25.2%  AUC: 0.9231
+  Domain                     N      Acc      AUC
+  ----------------------  -----  -------  -------
+  DeepFakeDetection       1289    28.0%     n/a
+  Deepfakes                360    38.9%     n/a
+  Face2Face                360    10.3%     n/a
+  FaceShifter              360     1.9%     n/a
+  FaceSwap                 360     0.8%     n/a
+  NeuralTextures           360     5.6%     n/a
+  actors                    81   100.0%     n/a
+  youtube                  200   100.0%     n/a
+LR: backbone:2.9e-05 | rest:2.9e-04   Time: 1986.1s
+  -> BEST model saved (val AUC: 0.9231)
+
+Epoch 9/50 [TRAIN]: 100%|███| 3030/3030 [46:30<00:00,  1.09it/s, acc=92.6%, fake=68.7%, loss=0.0559, nan=0, real=71.6%]
+Epoch 9/50 [VAL]: 100%|████████████████████████████████████| 1685/1685 [05:29<00:00,  5.11it/s, acc=41.8%, loss=0.2195]
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+
+----------------------------------------------------------------------
+Epoch 9/50 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.05588  Acc: 92.6%  AUC: 0.9679  [Real: 71.6%  Fake: 68.7%]  NaN: 0
+Val    Loss: 0.21954  Acc: 41.8%  AUC: 0.9320
+  Domain                     N      Acc      AUC
+  ----------------------  -----  -------  -------
+  DeepFakeDetection       1289    46.3%     n/a
+  Deepfakes                360    61.7%     n/a
+  Face2Face                360    42.2%     n/a
+  FaceShifter              360    10.8%     n/a
+  FaceSwap                 360     6.9%     n/a
+  NeuralTextures           360    25.6%     n/a
+  actors                    81   100.0%     n/a
+  youtube                  200    99.5%     n/a
+LR: backbone:2.9e-05 | rest:2.8e-04   Time: 3121.0s
+  -> BEST model saved (val AUC: 0.9320)
+
+Epoch 10/50 [TRAIN]: 100%|██| 3030/3030 [28:42<00:00,  1.76it/s, acc=93.3%, fake=68.3%, loss=0.0548, nan=0, real=70.6%]
+Epoch 10/50 [VAL]: 100%|███████████████████████████████████| 1685/1685 [05:30<00:00,  5.11it/s, acc=54.7%, loss=0.2058]
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+
+----------------------------------------------------------------------
+Epoch 10/50 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.05484  Acc: 93.3%  AUC: 0.9676  [Real: 70.6%  Fake: 68.3%]  NaN: 0
+Val    Loss: 0.20577  Acc: 54.7%  AUC: 0.9591
+  Domain                     N      Acc      AUC
+  ----------------------  -----  -------  -------
+  DeepFakeDetection       1289    62.4%     n/a
+  Deepfakes                360    73.3%     n/a
+  Face2Face                360    56.4%     n/a
+  FaceShifter              360    26.4%     n/a
+  FaceSwap                 360    22.2%     n/a
+  NeuralTextures           360    31.9%     n/a
+  actors                    81   100.0%     n/a
+  youtube                  200   100.0%     n/a
+LR: backbone:2.8e-05 | rest:2.8e-04   Time: 2052.2s
+  -> BEST model saved (val AUC: 0.9591)
+
+Epoch 11/50 [TRAIN]: 100%|██| 3030/3030 [23:08<00:00,  2.18it/s, acc=95.1%, fake=70.2%, loss=0.0457, nan=0, real=73.4%]
+Epoch 11/50 [VAL]: 100%|███████████████████████████████████| 1685/1685 [05:30<00:00,  5.10it/s, acc=61.3%, loss=0.1894]
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+
+----------------------------------------------------------------------
+Epoch 11/50 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.04569  Acc: 95.1%  AUC: 0.9793  [Real: 73.4%  Fake: 70.2%]  NaN: 0
+Val    Loss: 0.18944  Acc: 61.3%  AUC: 0.9560
+  Domain                     N      Acc      AUC
+  ----------------------  -----  -------  -------
+  DeepFakeDetection       1289    68.0%     n/a
+  Deepfakes                360    71.9%     n/a
+  Face2Face                360    68.9%     n/a
+  FaceShifter              360    36.4%     n/a
+  FaceSwap                 360    36.9%     n/a
+  NeuralTextures           360    38.9%     n/a
+  actors                    81   100.0%     n/a
+  youtube                  200    99.0%     n/a
+LR: backbone:2.8e-05 | rest:2.7e-04   Time: 1718.6s
+  -> No improvement (best AUC: 0.9591). Patience: 1/7
+
+Epoch 12/50 [TRAIN]: 100%|██| 3030/3030 [27:25<00:00,  1.84it/s, acc=95.7%, fake=70.9%, loss=0.0424, nan=0, real=71.5%]
+Epoch 12/50 [VAL]: 100%|███████████████████████████████████| 1685/1685 [05:30<00:00,  5.10it/s, acc=64.6%, loss=0.2028]
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+
+----------------------------------------------------------------------
+Epoch 12/50 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.04244  Acc: 95.7%  AUC: 0.9830  [Real: 71.5%  Fake: 70.9%]  NaN: 0
+Val    Loss: 0.20283  Acc: 64.6%  AUC: 0.9656
+  Domain                     N      Acc      AUC
+  ----------------------  -----  -------  -------
+  DeepFakeDetection       1289    73.4%     n/a
+  Deepfakes                360    73.6%     n/a
+  Face2Face                360    66.1%     n/a
+  FaceShifter              360    36.1%     n/a
+  FaceSwap                 360    45.3%     n/a
+  NeuralTextures           360    43.1%     n/a
+  actors                    81   100.0%     n/a
+  youtube                  200    99.5%     n/a
+LR: backbone:2.7e-05 | rest:2.7e-04   Time: 1975.8s
+  -> BEST model saved (val AUC: 0.9656)
+
+Epoch 13/50 [TRAIN]: 100%|██| 3030/3030 [37:31<00:00,  1.35it/s, acc=96.4%, fake=72.2%, loss=0.0385, nan=0, real=71.5%]
+Epoch 13/50 [VAL]: 100%|███████████████████████████████████| 1685/1685 [05:15<00:00,  5.34it/s, acc=69.6%, loss=0.1793]
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+
+----------------------------------------------------------------------
+Epoch 13/50 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.03850  Acc: 96.4%  AUC: 0.9885  [Real: 71.5%  Fake: 72.2%]  NaN: 0
+Val    Loss: 0.17927  Acc: 69.6%  AUC: 0.9552
+  Domain                     N      Acc      AUC
+  ----------------------  -----  -------  -------
+  DeepFakeDetection       1289    75.4%     n/a
+  Deepfakes                360    72.2%     n/a
+  Face2Face                360    71.1%     n/a
+  FaceShifter              360    53.1%     n/a
+  FaceSwap                 360    63.3%     n/a
+  NeuralTextures           360    44.2%     n/a
+  actors                    81   100.0%     n/a
+  youtube                  200   100.0%     n/a
+LR: backbone:2.6e-05 | rest:2.6e-04   Time: 2567.1s
+  -> No improvement (best AUC: 0.9656). Patience: 1/7
+
+Epoch 14/50 [TRAIN]: 100%|██| 3030/3030 [34:57<00:00,  1.44it/s, acc=97.0%, fake=73.2%, loss=0.0368, nan=0, real=73.3%]
+Epoch 14/50 [VAL]: 100%|███████████████████████████████████| 1685/1685 [05:16<00:00,  5.33it/s, acc=81.8%, loss=0.1196]
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+
+----------------------------------------------------------------------
+Epoch 14/50 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.03681  Acc: 97.0%  AUC: 0.9877  [Real: 73.3%  Fake: 73.2%]  NaN: 0
+Val    Loss: 0.11962  Acc: 81.8%  AUC: 0.9707
+  Domain                     N      Acc      AUC
+  ----------------------  -----  -------  -------
+  DeepFakeDetection       1289    86.9%     n/a
+  Deepfakes                360    84.2%     n/a
+  Face2Face                360    83.3%     n/a
+  FaceShifter              360    71.9%     n/a
+  FaceSwap                 360    75.6%     n/a
+  NeuralTextures           360    62.2%     n/a
+  actors                    81    98.8%     n/a
+  youtube                  200    98.5%     n/a
+LR: backbone:2.6e-05 | rest:2.6e-04   Time: 2413.6s
+  -> BEST model saved (val AUC: 0.9707)
+
+Epoch 15/50 [TRAIN]: 100%|██| 3030/3030 [31:48<00:00,  1.59it/s, acc=97.3%, fake=73.0%, loss=0.0342, nan=0, real=73.3%]
+Epoch 15/50 [VAL]: 100%|███████████████████████████████████| 1685/1685 [05:16<00:00,  5.33it/s, acc=86.8%, loss=0.0997]
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+
+----------------------------------------------------------------------
+Epoch 15/50 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.03419  Acc: 97.3%  AUC: 0.9896  [Real: 73.3%  Fake: 73.0%]  NaN: 0
+Val    Loss: 0.09965  Acc: 86.8%  AUC: 0.9807
+  Domain                     N      Acc      AUC
+  ----------------------  -----  -------  -------
+  DeepFakeDetection       1289    89.2%     n/a
+  Deepfakes                360    90.8%     n/a
+  Face2Face                360    87.5%     n/a
+  FaceShifter              360    78.1%     n/a
+  FaceSwap                 360    83.6%     n/a
+  NeuralTextures           360    75.3%     n/a
+  actors                    81    98.8%     n/a
+  youtube                  200    99.5%     n/a
+LR: backbone:2.5e-05 | rest:2.5e-04   Time: 2224.8s
+  -> BEST model saved (val AUC: 0.9807)
+
+Epoch 16/50 [TRAIN]: 100%|██| 3030/3030 [23:46<00:00,  2.12it/s, acc=97.6%, fake=73.3%, loss=0.0318, nan=0, real=71.8%]
+Epoch 16/50 [VAL]: 100%|███████████████████████████████████| 1685/1685 [05:15<00:00,  5.35it/s, acc=77.3%, loss=0.1628]
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+
+----------------------------------------------------------------------
+Epoch 16/50 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.03183  Acc: 97.6%  AUC: 0.9918  [Real: 71.8%  Fake: 73.3%]  NaN: 0
+Val    Loss: 0.16284  Acc: 77.3%  AUC: 0.9581
+  Domain                     N      Acc      AUC
+  ----------------------  -----  -------  -------
+  DeepFakeDetection       1289    81.5%     n/a
+  Deepfakes                360    82.8%     n/a
+  Face2Face                360    77.8%     n/a
+  FaceShifter              360    63.1%     n/a
+  FaceSwap                 360    67.8%     n/a
+  NeuralTextures           360    62.8%     n/a
+  actors                    81    98.8%     n/a
+  youtube                  200   100.0%     n/a
+LR: backbone:2.4e-05 | rest:2.4e-04   Time: 1741.7s
+  -> No improvement (best AUC: 0.9807). Patience: 1/7
+
+Epoch 17/50 [TRAIN]: 100%|██| 3030/3030 [23:31<00:00,  2.15it/s, acc=97.5%, fake=72.8%, loss=0.0333, nan=1, real=73.0%]
+Epoch 17/50 [VAL]: 100%|███████████████████████████████████████████████████████████| 1685/1685 [05:13<00:00,  5.37it/s]
+
+----------------------------------------------------------------------
+Epoch 17/50 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.03326  Acc: 97.5%  AUC: 0.9897  [Real: 73.0%  Fake: 72.8%]  NaN: 1
+Val    Loss: nan  Acc: 0.0%  AUC: 0.0000
+LR: backbone:2.4e-05 | rest:2.3e-04   Time: 1726.0s
+  -> No improvement (best AUC: 0.9807). Patience: 2/7
+
+Epoch 18/50 [TRAIN]:  48%|▍| 1456/3030 [41:37<1:30:24,  3.45s/it, acc=98.2%, fake=73.5%, loss=0.0278, nan=10, real=73.5

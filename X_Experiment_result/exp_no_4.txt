@@ -1,0 +1,86 @@
+Building Cache V2: 100%|█████████████████████████████████████████████████████████| 9431/9431 [4:39:42<00:00,  1.78s/it]
+
+Cache complete: 9431/9431
+
+Identity-aware split: train=6061, val=3370
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+AFAGNetV3 params: 19,273,723 total / 19,271,419 trainable
+
+Class balance — real: 1082, fake: 4979
+C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\nn\modules\module.py:1150: UserWarning: expandable_segments not supported on this platform (Triggered internally at ..\c10/cuda/CUDAAllocatorConfig.h:30.)
+  return t.to(device, dtype if t.is_floating_point() or t.is_complex() else None, non_blocking)
+
+LR groups: backbone=3.0e-05, rest=3.0e-04
+
+======================================================================
+SYSTEM & MODEL INFORMATION
+======================================================================
+Device:     GPU (CUDA)
+GPU Model:  NVIDIA GeForce RTX 3050 Laptop GPU
+GPU Memory: 4.00 GB
+CUDA:       12.1
+PyTorch:    2.2.2+cu121
+Params:     19,273,723 total / 19,271,419 trainable
+======================================================================
+
+
+======================================================================
+Training Started: 2026-04-03 12:24:02
+======================================================================
+Train: 6061 samples | Val: 3370
+AMP: True | MixUp: True | EMA: True | AltFreezing: False
+======================================================================
+
+Epoch 1/20 [TRAIN]: 100%|█| 3030/3030 [1:48:33<00:00,  2.15s/it, acc=49.9%, fake=38.3%, loss=0.2037, nan=0, real=36.2%]
+Epoch 1/20 [VAL]: 100%|████████████████████████████████████| 1685/1685 [06:21<00:00,  4.42it/s, acc=91.7%, loss=0.2534]
+
+----------------------------------------------------------------------
+Epoch 1/20 Summary
+----------------------------------------------------------------------
+Train  Loss: 0.20370  Acc: 49.9%  AUC: 0.4958  [Real: 36.2%  Fake: 38.3%]  NaN: 0
+Val    Loss: 0.25338  Acc: 91.7%  AUC: 0.4907
+  [youtube] acc: 0.0%
+  [actors] acc: 0.0%
+  [DeepFakeDetection] acc: 100.0%
+  [Deepfakes] acc: 100.0%
+  [Face2Face] acc: 100.0%
+  [FaceShifter] acc: 100.0%
+  [FaceSwap] acc: 100.0%
+  [NeuralTextures] acc: 100.0%
+LR: backbone:1.5e-05 | rest:1.5e-04   Time: 6894.9s
+  -> Warmup epoch, not counting toward patience.
+Epoch 2/20 [TRAIN]:   6%|▏ | 196/3030 [05:55<1:25:36,  1.81s/it, acc=52.3%, fake=45.1%, loss=0.2246, nan=0, real=36.7%]
+Traceback (most recent call last):
+  File "C:\Users\mayur\AppData\Local\Programs\Python\Python310\lib\runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Users\mayur\AppData\Local\Programs\Python\Python310\lib\runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\train\run_train_v3.py", line 152, in <module>
+    main()
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\train\run_train_v3.py", line 124, in main
+    history = train(
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\train\train_pipeline_v3.py", line 672, in train
+    train_m = train_one_epoch(
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\train\train_pipeline_v3.py", line 351, in train_one_epoch
+    out      = model(frames)
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\nn\modules\module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\nn\modules\module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\models\afag_net_v3.py", line 275, in forward
+    Ff = self.frequency(x_flat)          # (B*N, 256, 14, 14)
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\nn\modules\module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\nn\modules\module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\models\branches\frequency_branch_raw.py", line 256, in forward
+    freq_feat = self.multiscale_fft(x_norm)     # (B*N, 256, 14, 14)
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\nn\modules\module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\btech\lib\site-packages\torch\nn\modules\module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\models\branches\frequency_branch_raw.py", line 129, in forward
+    mag, phase = self._block_fft(x_f32, block_size)
+  File "C:\Users\mayur\Desktop\dummmmmmmmy\models\branches\frequency_branch_raw.py", line 95, in _block_fft
+    phase = torch.angle(fft)                         # [-pi, pi]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 20.00 MiB. GPU 0 has a total capacity of 4.00 GiB of which 0 bytes is free. Of the allocated memory 5.62 GiB is allocated by PyTorch, and 20.22 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
